@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   
-    <title>Categories :: Lab</title>
+    <title>01 Virtual Box :: Lab</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://laboratorio.jaimealberto.io/categories/" />
+<link rel="canonical" href="http://laboratorio.jaimealberto.io/tools/01_virtualbox/" />
 
 
 
@@ -34,10 +34,10 @@
 
 
 <meta property="og:locale" content="en" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Categories">
+<meta property="og:type" content="article" />
+<meta property="og:title" content="01 Virtual Box">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://laboratorio.jaimealberto.io/categories/" />
+<meta property="og:url" content="http://laboratorio.jaimealberto.io/tools/01_virtualbox/" />
 <meta property="og:site_name" content="Lab" />
 
   
@@ -50,8 +50,6 @@
 
 
 
-
-  <link href="/categories/index.xml" rel="alternate" type="application/rss+xml" title="Lab" />
 
 
 
@@ -120,13 +118,55 @@
 
   <div class="content">
     
-  <div class="terms">
-    <h1>Categories</h1>
-    <ul>
-      
-      
-    </ul>
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://laboratorio.jaimealberto.io/tools/01_virtualbox/">01 Virtual Box</a></h1>
+  <div class="post-meta">
+    
+    
+    
   </div>
+
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>La instalación de Virtual Box la realizaremos desde los repositorios oficiales de Virtual Box para así estar siempre actualizados a ultimas versiones.</p>
+<h2 id="debian-11">Debian 11:<a href="#debian-11" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Desde nuestro terminal como root:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="1" type="checkbox" checked />
+    <label for="1">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">Really cool snippet</span>
+      <span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide"></span>
+    </label>
+    <pre class="language-bash" ><code>
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
+echo &#34;deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib&#34; |  tee /etc/apt/sources.list.d/virtualbox.list
+apt update
+apt install virtualbox-6.1
+</code></pre>
+  </div>
+
+
+<p>En este caso la ultima versión disponible es la  6.1</p>
+      </div></div>
+
+  
+
+  
+  
+
+  
+</div>
 
   </div>
 

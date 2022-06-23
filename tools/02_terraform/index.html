@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   
-    <title>Categories :: Lab</title>
+    <title>02 Terraform :: Lab</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="http://laboratorio.jaimealberto.io/categories/" />
+<link rel="canonical" href="http://laboratorio.jaimealberto.io/tools/02_terraform/" />
 
 
 
@@ -34,10 +34,10 @@
 
 
 <meta property="og:locale" content="en" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Categories">
+<meta property="og:type" content="article" />
+<meta property="og:title" content="02 Terraform">
 <meta property="og:description" content="" />
-<meta property="og:url" content="http://laboratorio.jaimealberto.io/categories/" />
+<meta property="og:url" content="http://laboratorio.jaimealberto.io/tools/02_terraform/" />
 <meta property="og:site_name" content="Lab" />
 
   
@@ -50,8 +50,6 @@
 
 
 
-
-  <link href="/categories/index.xml" rel="alternate" type="application/rss+xml" title="Lab" />
 
 
 
@@ -120,13 +118,68 @@
 
   <div class="content">
     
-  <div class="terms">
-    <h1>Categories</h1>
-    <ul>
-      
-      
-    </ul>
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://laboratorio.jaimealberto.io/tools/02_terraform/">02 Terraform</a></h1>
+  <div class="post-meta">
+    
+    
+    
   </div>
+
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>La instalación de Terraform la realizaremos desde los repositorios oficiales de Hasicorp para así estar siempre actualizados a ultimas versiones.</p>
+<p>Desde nuestro terminal como root:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="1" type="checkbox" checked />
+    <label for="1">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">Really cool snippet</span>
+      <span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide"></span>
+    </label>
+    <pre class="language-bash" ><code>
+apt-get update &amp;&amp; apt-get install -y gnupg software-properties-common curl
+curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+apt-add-repository &#34;deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main&#34;
+apt-get update
+apt-get install terraform
+</code></pre>
+  </div>
+
+
+<p>Comprobamos que todo funciona:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="2" type="checkbox" checked />
+    <label for="2">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">Really cool snippet</span>
+      <span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide"></span>
+    </label>
+    <pre class="language-bash" ><code>
+terraform -v
+</code></pre>
+  </div>
+      </div></div>
+
+  
+
+  
+  
+
+  
+</div>
 
   </div>
 

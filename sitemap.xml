@@ -3,73 +3,54 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://example.com/about/</loc>
-    <lastmod>2021-08-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/</loc>
-    <lastmod>2021-08-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/about/about/</loc>
-    <lastmod>2021-08-08T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/categories/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/tags/gui/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/categories/macos/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/post/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/tags/so/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/tags/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/tags/terminal/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/post/01_empezamos/</loc>
-    <lastmod>2021-08-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/hardware/</loc>
+    <loc>http://laboratorio.jaimealberto.io/posts/34/</loc>
     <lastmod>1970-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/ayuda/</loc>
+    <loc>http://laboratorio.jaimealberto.io/</loc>
     <lastmod>1970-01-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/software/</loc>
+    <loc>http://laboratorio.jaimealberto.io/posts/</loc>
     <lastmod>1970-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tools/01_virtualbox/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tools/02_terraform/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tools/03_ansible/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tools/04_powershell/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tools/05_docker/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tools/06_dockercompose/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>http://laboratorio.jaimealberto.io/tools/</loc>
   </url>
   
 </urlset>

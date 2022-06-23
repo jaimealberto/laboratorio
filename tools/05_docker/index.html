@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>05 Docker :: Lab</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="http://laboratorio.jaimealberto.io/tools/05_docker/" />
+
+
+
+
+<link rel="stylesheet" href="http://laboratorio.jaimealberto.io/assets/style.css">
+
+  <link rel="stylesheet" href="http://laboratorio.jaimealberto.io/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="http://laboratorio.jaimealberto.io/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="http://laboratorio.jaimealberto.io/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="05 Docker">
+<meta property="og:description" content="" />
+<meta property="og:url" content="http://laboratorio.jaimealberto.io/tools/05_docker/" />
+<meta property="og:site_name" content="Lab" />
+
+  
+    <meta property="og:image" content="http://laboratorio.jaimealberto.io/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container full headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Laboratorio
+  </div>
+</a>
+
+    </div>
+    
+      <div class="menu-trigger">menu</div>
+    
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/tools">Herramientas</a></li>
+        
+      
+        
+          <li><a href="/laboratorios">Laboratorios</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/tools">Herramientas</a></li>
+      
+    
+      
+        <li><a href="/laboratorios">Laboratorios</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="http://laboratorio.jaimealberto.io/tools/05_docker/">05 Docker</a></h1>
+  <div class="post-meta">
+    
+    
+    
+  </div>
+
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>La instalación de Docker la realizaremos desde los repositorios oficiales de <a href="https://docs.docker.com/engine/install/debian/#install-using-the-repository">Docker</a> para así estar siempre actualizados a ultimas versiones.</p>
+<p>Desde nuestro terminal como root añadimos los el repositorio:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="1" type="checkbox" checked />
+    <label for="1">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">Really cool snippet</span>
+      <span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide"></span>
+    </label>
+    <pre class="language-bash" ><code>
+apt remove docker docker-engine docker.io containerd runc
+apt update
+apt-get install ca-certificates curl gnupg lsb-release
+mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable&#34; | tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</code></pre>
+  </div>
+
+
+<p>Listamos las versiones disponibles:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="2" type="checkbox" checked />
+    <label for="2">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">Really cool snippet</span>
+      <span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide"></span>
+    </label>
+    <pre class="language-bash" ><code>
+apt-cache madison docker-ce
+</code></pre>
+  </div>
+
+
+<p>Instalamos la versión que queramos:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="3" type="checkbox" checked />
+    <label for="3">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">Really cool snippet</span>
+      <span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide"></span>
+    </label>
+    <pre class="language-bash" ><code>
+apt-get install docker-ce=&lt;VERSION_STRING&gt; docker-ce-cli=&lt;VERSION_STRING&gt; containerd.io docker-compose-plugin
+</code></pre>
+  </div>
+
+
+<p>Comprobamos que todo funciona:</p>
+
+
+
+  <div class="collapsable-code">
+    <input id="4" type="checkbox" checked />
+    <label for="4">
+      <span class="collapsable-code__language">bash</span>
+      <span class="collapsable-code__title">Really cool snippet</span>
+      <span class="collapsable-code__toggle" data-label-expand="Show" data-label-collapse="Hide"></span>
+    </label>
+    <pre class="language-bash" ><code>
+docker run hello-world
+</code></pre>
+  </div>
+      </div></div>
+
+  
+
+  
+  
+
+  
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2022 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="http://laboratorio.jaimealberto.io/assets/main.js"></script>
+<script src="http://laboratorio.jaimealberto.io/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

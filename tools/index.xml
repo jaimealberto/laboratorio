@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lab</title>
-    <link>http://laboratorio.jaimealberto.io/</link>
-    <description>Recent content on Lab</description>
+    <title>Tools on Lab</title>
+    <link>http://laboratorio.jaimealberto.io/tools/</link>
+    <description>Recent content in Tools on Lab</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 01 Jan 1970 00:00:00 +0000</lastBuildDate><atom:link href="http://laboratorio.jaimealberto.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>34</title>
-      <link>http://laboratorio.jaimealberto.io/posts/34/</link>
-      <pubDate>Thu, 01 Jan 1970 00:00:00 +0000</pubDate>
-      
-      <guid>http://laboratorio.jaimealberto.io/posts/34/</guid>
-      <description>34 </description>
-      <content>&lt;h1 id=&#34;34&#34;&gt;34&lt;/h1&gt;
-
-  &lt;img src=&#34;http://laboratorio.jaimealberto.io/img/34.jpg&#34;  alt=&#34;Hello Friend&#34;  class=&#34;center&#34;  style=&#34;border-radius: 8px;&#34;  /&gt;
-
-
-</content>
-    </item>
-    
+    <language>en-us</language><atom:link href="http://laboratorio.jaimealberto.io/tools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>01 Virtual Box</title>
       <link>http://laboratorio.jaimealberto.io/tools/01_virtualbox/</link>
