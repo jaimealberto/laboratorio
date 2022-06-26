@@ -115,7 +115,7 @@
 </ul>
 <hr>
 <p>Para realizar los laboratorios necesitaremos desplegar una serie de hosts con características comunes. Aquí estan los check list que utilizo para los hosts y  así poder tener control de las plantillas base que posteriormente se utilizaran para los laboratorios.</p>
-<h4 id="a-nameu20saubuntu-server-204"><!-- raw HTML omitted --><!-- raw HTML omitted -->Ubuntu Server 20.4</h4>
+<h3 id="a-nameu20saubuntu-server-204"><!-- raw HTML omitted --><!-- raw HTML omitted -->Ubuntu Server 20.4</h3>
 <p>Caracteristicas:</p>
 <ul>
 <li>Version: 20.04</li>
@@ -191,7 +191,7 @@ reboot
 <li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
 </ul>
 <p><a href="#top">[Top]</a></p>
-<h1 id="a-named10sadebian-server-10"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 10</h1>
+<h3 id="a-named10sadebian-server-10"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 10</h3>
 <p>Caracteristicas:</p>
 <ul>
 <li>Version: 10</li>
@@ -205,9 +205,6 @@ reboot
 <p>Configuración aplicada:</p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> Copiar llave ssh acceso remoto.</li>
-<li><input checked="" disabled="" type="checkbox"> Configurar zona horaria.
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
-</code></pre></div></li>
 <li><input checked="" disabled="" type="checkbox"> Software necesario.
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y
 apt update <span class="o">&amp;&amp;</span> apt install -y sudo dkms build-essential linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
@@ -261,7 +258,7 @@ reboot
 <li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
 </ul>
 <p><a href="#top">[Top]</a></p>
-<h1 id="a-named11sadebian-server-11"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 11</h1>
+<h3 id="a-named11sadebian-server-11"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 11</h3>
 <p>Caracteristicas:</p>
 <ul>
 <li>Version: 11</li>
@@ -275,9 +272,6 @@ reboot
 <p>Configuración aplicada:</p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> Copiar llave ssh acceso remoto.</li>
-<li><input checked="" disabled="" type="checkbox"> Configurar zona horaria.
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
-</code></pre></div></li>
 <li><input checked="" disabled="" type="checkbox"> Software necesario.
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y
 apt update <span class="o">&amp;&amp;</span> apt install -y sudo dkms build-essential linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
