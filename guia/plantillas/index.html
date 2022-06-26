@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Plantillas - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Plantillas</h1>
+<div class="content ">
+  <h1 id="a-nametopa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<ul>
+<li><a href="#u20s">Ubuntu Server 20.4</a></li>
+<li><a href="#d10s">Debian Server 10</a></li>
+<li><a href="#d11s">Debian Server 11</a></li>
+</ul>
+<hr>
+<p>Para realizar los laboratorios necesitaremos desplegar una serie de hosts con características comunes. Aquí estan los check list que utilizo para los hosts y  así poder tener control de las plantillas base que posteriormente se utilizaran para los laboratorios.</p>
+<h4 id="a-nameu20saubuntu-server-204"><!-- raw HTML omitted --><!-- raw HTML omitted -->Ubuntu Server 20.4</h4>
+<p>Caracteristicas:</p>
+<ul>
+<li>Version: 20.04</li>
+<li>Instalación básica</li>
+<li>Ip fija (ipv4).</li>
+<li>Servidor ssh.</li>
+<li>Audio deshabilitado.</li>
+<li>Usuario creado, &ldquo;sistemas&rdquo;.</li>
+</ul>
+<p>Configuración aplicada:</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Copiar llave ssh acceso remoto.</li>
+<li><input checked="" disabled="" type="checkbox"> Configurar zona horaria.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar actualizaciones automáticas.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl stop unattended-upgrades
+systemctl disable unattended-upgrades
+systemctl status unattended-upgrades
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar ipv6. (/etc/default/grub)
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">///////
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;ipv6.disable=1&#34;
+GRUB_CMDLINE_LINUX=&#34;ipv6.disable=1&#34;
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">update-grub
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar password sudo usuario sistemas.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">visudo
+//////
+%sudo   <span class="nv">ALL</span><span class="o">=(</span>ALL:ALL<span class="o">)</span> ALL
+sistemas    <span class="nv">ALL</span><span class="o">=</span>NOPASSWD: ALL
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Software necesario.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y
+apt update <span class="o">&amp;&amp;</span> apt install -y dkms build-essential linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
+apt autoremove
+reboot
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar ipv 6 esta dishabilitado.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ip a
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que las actualizaciones automáticas estan deshabilitadas.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl status unattended-upgrades
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Actualizar.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y <span class="o">&amp;&amp;</span> apt autoremove
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Instalacion Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">mount /dev/cdrom /media
+<span class="nb">cd</span> /media
+./VBoxLinuxAdditions.run
+<span class="nb">cd</span>
+umount /media
+reboot
+<span class="sb">```</span>     <span class="sb">```</span>
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que las Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl status vboxadd
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que todos los serviciios arrancan correctamente.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl --failed
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar errores.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dmesg <span class="p">|</span> grep -i failed
+</code></pre></div><p>Cambiar Pantalla/Controlador gráfico VBoxSVGA o VBoxVGA</p>
+</li>
+</ul>
+<p>Usando plantilla :</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Cambiar hostname</li>
+<li><input checked="" disabled="" type="checkbox"> Cambiar ip</li>
+<li><input checked="" disabled="" type="checkbox"> Generar llaves ssh servidor</li>
+<li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
+</ul>
+<p><a href="#top">[Top]</a></p>
+<h1 id="a-named10sadebian-server-10"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 10</h1>
+<p>Caracteristicas:</p>
+<ul>
+<li>Version: 10</li>
+<li>Instalación net-install.</li>
+<li>Ip fija (ipv4).</li>
+<li>Servidor ssh, utilidades estandar del sistema.</li>
+<li>Audio deshabilitado.</li>
+<li>root activo.</li>
+<li>Usuario creado, &ldquo;sistemas&rdquo;.</li>
+</ul>
+<p>Configuración aplicada:</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Copiar llave ssh acceso remoto.</li>
+<li><input checked="" disabled="" type="checkbox"> Configurar zona horaria.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Software necesario.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y
+apt update <span class="o">&amp;&amp;</span> apt install -y sudo dkms build-essential linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
+apt autoremove
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar ipv6. (/etc/default/grub)
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">///////
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;ipv6.disable=1&#34;
+GRUB_CMDLINE_LINUX=&#34;ipv6.disable=1&#34;
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">update-grub
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar password sudo usuario sistemas.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">visudo
+//////
+%sudo   <span class="nv">ALL</span><span class="o">=(</span>ALL:ALL<span class="o">)</span> ALL
+sistemas <span class="nv">ALL</span><span class="o">=</span>NOPASSWD: ALL
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Reiniciar.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">reboot
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar ipv 6 esta dishabilitado.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ip a
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Actualizar.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y <span class="o">&amp;&amp;</span> apt autoremove
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Instalacion Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">mount /dev/cdrom /mnt
+<span class="nb">cd</span> /mnt
+./VBoxLinuxAdditions.run
+<span class="nb">cd</span>
+umount /mnt
+reboot
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que las Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl status vboxadd
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que todos los serviciios arrancan correctamente.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl list-unit-files <span class="p">|</span> grep -i failed
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar errores.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dmesg <span class="p">|</span> grep -i failed
+</code></pre></div><p>Cambiar Pantalla/Controlador gráfico VBoxSVGA o VBoxVGA</p>
+</li>
+</ul>
+<p>Usando plantilla :</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Cambiar hostname</li>
+<li><input checked="" disabled="" type="checkbox"> Cambiar ip</li>
+<li><input checked="" disabled="" type="checkbox"> Generar llaves ssh servidor</li>
+<li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
+</ul>
+<p><a href="#top">[Top]</a></p>
+<h1 id="a-named11sadebian-server-11"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 11</h1>
+<p>Caracteristicas:</p>
+<ul>
+<li>Version: 11</li>
+<li>Instalación net-install.</li>
+<li>Ip fija (ipv4).</li>
+<li>Servidor ssh, utilidades estandar del sistema.</li>
+<li>Audio deshabilitado.</li>
+<li>root activo.</li>
+<li>Usuario creado, &ldquo;sistemas&rdquo;.</li>
+</ul>
+<p>Configuración aplicada:</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Copiar llave ssh acceso remoto.</li>
+<li><input checked="" disabled="" type="checkbox"> Configurar zona horaria.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Software necesario.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y
+apt update <span class="o">&amp;&amp;</span> apt install -y sudo dkms build-essential linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
+apt autoremove
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar ipv6. (/etc/default/grub)
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">///////
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;ipv6.disable=1&#34;
+GRUB_CMDLINE_LINUX=&#34;ipv6.disable=1&#34;
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">update-grub
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar password sudo usuario sistemas.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">visudo
+//////
+%sudo   <span class="nv">ALL</span><span class="o">=(</span>ALL:ALL<span class="o">)</span> ALL
+sistemas <span class="nv">ALL</span><span class="o">=</span>NOPASSWD: ALL
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Reiniciar.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">reboot
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar ipv 6 esta dishabilitado.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ip a
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Actualizar.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y <span class="o">&amp;&amp;</span> apt autoremove
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Instalacion Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">mount /dev/cdrom /mnt
+<span class="nb">cd</span> /mnt
+./VBoxLinuxAdditions.run
+<span class="nb">cd</span>
+umount /mnt
+reboot
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que las Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl status vboxadd
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que todos los serviciios arrancan correctamente.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl list-unit-files <span class="p">|</span> grep -i failed
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar errores.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dmesg <span class="p">|</span> grep -i failed
+</code></pre></div><p>Cambiar Pantalla/Controlador gráfico VBoxSVGA o VBoxVGA</p>
+</li>
+</ul>
+<p>Usando plantilla :</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Cambiar hostname</li>
+<li><input checked="" disabled="" type="checkbox"> Cambiar ip</li>
+<li><input checked="" disabled="" type="checkbox"> Generar llaves ssh servidor</li>
+<li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
+</ul>
+<p><a href="#top">[Top]</a></p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>

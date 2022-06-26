@@ -3,54 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://laboratorio.jaimealberto.io/posts/34/</loc>
-    <lastmod>1970-01-01T00:00:00+00:00</lastmod>
+    <loc>https://laboratorio.jaimealberto.io/guia/herramientas/</loc>
   </url>
   
   <url>
-    <loc>http://laboratorio.jaimealberto.io/</loc>
-    <lastmod>1970-01-01T00:00:00+00:00</lastmod>
+    <loc>https://laboratorio.jaimealberto.io/guia/</loc>
   </url>
   
   <url>
-    <loc>http://laboratorio.jaimealberto.io/posts/</loc>
-    <lastmod>1970-01-01T00:00:00+00:00</lastmod>
+    <loc>https://laboratorio.jaimealberto.io/guia/plantillas/</loc>
   </url>
   
   <url>
-    <loc>http://laboratorio.jaimealberto.io/tools/01_virtualbox/</loc>
+    <loc>https://laboratorio.jaimealberto.io/categories/</loc>
   </url>
   
   <url>
-    <loc>http://laboratorio.jaimealberto.io/tools/02_terraform/</loc>
+    <loc>https://laboratorio.jaimealberto.io/</loc>
   </url>
   
   <url>
-    <loc>http://laboratorio.jaimealberto.io/tools/03_ansible/</loc>
-  </url>
-  
-  <url>
-    <loc>http://laboratorio.jaimealberto.io/tools/04_powershell/</loc>
-  </url>
-  
-  <url>
-    <loc>http://laboratorio.jaimealberto.io/tools/05_docker/</loc>
-  </url>
-  
-  <url>
-    <loc>http://laboratorio.jaimealberto.io/tools/06_dockercompose/</loc>
-  </url>
-  
-  <url>
-    <loc>http://laboratorio.jaimealberto.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>http://laboratorio.jaimealberto.io/tags/</loc>
-  </url>
-  
-  <url>
-    <loc>http://laboratorio.jaimealberto.io/tools/</loc>
+    <loc>https://laboratorio.jaimealberto.io/tags/</loc>
   </url>
   
 </urlset>

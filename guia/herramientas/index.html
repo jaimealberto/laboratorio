@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Herramientas - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Herramientas</h1>
+<div class="content ">
+  <h1 id="a-nametopa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<ul>
+<li><a href="#VirtualBox">VirtualBox</a></li>
+<li><a href="#Terraform">Terraform</a></li>
+<li><a href="#Ansible">Ansible</a></li>
+<li><a href="#Powershell">Powershell</a></li>
+<li><a href="#Docker-Compose">Docker-Compose</a></li>
+</ul>
+<hr>
+<h4 id="a-namevirtualboxavirtualbox"><!-- raw HTML omitted --><!-- raw HTML omitted -->VirtualBox</h4>
+<p>La instalación de Virtual Box la realizaremos desde los repositorios oficiales de Virtual Box para así estar siempre actualizados a ultimas versiones.</p>
+<p>Desde nuestro terminal como root:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- <span class="p">|</span> apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- <span class="p">|</span> apt-key add -
+<span class="nb">echo</span> <span class="s2">&#34;deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bullseye contrib&#34;</span> <span class="p">|</span>  tee /etc/apt/sources.list.d/virtualbox.list
+apt update
+apt install virtualbox-6.1
+</code></pre></div><p>En este caso la ultima versión disponible es la  6.1</p>
+<p><a href="#top">[Top]</a></p>
+<h4 id="a-nameterraformaterraform"><!-- raw HTML omitted --><!-- raw HTML omitted -->Terraform</h4>
+<p>La instalación de Terraform la realizaremos desde los repositorios oficiales de Hasicorp para así estar siempre actualizados a ultimas versiones.</p>
+<p>Desde nuestro terminal como root:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get update <span class="o">&amp;&amp;</span> apt-get install -y gnupg software-properties-common curl
+curl -fsSL https://apt.releases.hashicorp.com/gpg <span class="p">|</span> apt-key add -
+apt-add-repository <span class="s2">&#34;deb [arch=amd64] https://apt.releases.hashicorp.com </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> main&#34;</span>
+apt-get update
+apt-get install terraform
+</code></pre></div><p>Comprobamos que todo funciona:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">terraform -v
+</code></pre></div><p><a href="#top">[Top]</a></p>
+<h4 id="a-nameansibleaansible"><!-- raw HTML omitted --><!-- raw HTML omitted -->Ansible</h4>
+<p>La instalación de Ansible la realizaremos desde los repositorios de nuestra distribución.</p>
+<p>Desde nuestro terminal como root:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get install python3 python3-pip
+pip3 install ansible
+</code></pre></div><p>Comprobamos que todo funciona:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ansible --version
+</code></pre></div><p><a href="#top">[Top]</a></p>
+<h4 id="a-namepowershellapowershell"><!-- raw HTML omitted --><!-- raw HTML omitted -->Powershell</h4>
+<p>La instalación de Powershell la realizaremos desde los repositorios oficiales de Microsoft para así estar siempre actualizados a ultimas versiones.</p>
+<p>Desde nuestro terminal como root:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update  <span class="o">&amp;&amp;</span> apt install -y curl gnupg apt-transport-https
+curl https://packages.microsoft.com/keys/microsoft.asc <span class="p">|</span> apt-key add -
+sh -c <span class="s1">&#39;echo &#34;deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-bullseye-prod bullseye main&#34; &gt; /etc/apt/sources.list.d/microsoft.list&#39;</span>
+apt update
+apt install powershell
+</code></pre></div><p>Comprobamos que todo funciona:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pwsh
+</code></pre></div><p><a href="#top">[Top]</a></p>
+<h4 id="a-namedockeradocker"><!-- raw HTML omitted --><!-- raw HTML omitted -->Docker</h4>
+<p>La instalación de Docker la realizaremos desde los repositorios oficiales de <a href="https://docs.docker.com/engine/install/debian/#install-using-the-repository">Docker</a> para así estar siempre actualizados a ultimas versiones.</p>
+<p>Desde nuestro terminal como root añadimos los el repositorio:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt remove docker docker-engine docker.io containerd runc
+apt update
+apt-get install ca-certificates curl gnupg lsb-release
+mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg <span class="p">|</span> gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+<span class="nb">echo</span> <span class="s2">&#34;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&#34;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</code></pre></div><p>Listamos las versiones disponibles:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-cache madison docker-ce
+</code></pre></div><p>Instalamos la versión que queramos:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get install docker-ce<span class="o">=</span>&lt;VERSION_STRING&gt; docker-ce-cli<span class="o">=</span>&lt;VERSION_STRING&gt; containerd.io docker-compose-plugin
+</code></pre></div><p>Comprobamos que todo funciona:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">docker run hello-world
+</code></pre></div><p><a href="#top">[Top]</a></p>
+<h4 id="a-namedocker-composeadocker-compose"><!-- raw HTML omitted --><!-- raw HTML omitted -->Docker-Compose</h4>
+<p>Descargamos la ultima versión del binario desde el proyecto de <a href="https://github.com/docker/compose/releases">GitHub</a></p>
+<p>Desde nuestro terminal como root:</p>
+<p>Descargamos la ultima versión del binario que corresponda a nuestra arquitectura, ejemplo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">wget https://github.com/docker/compose/releases/download/v2.6.0/docker-compose-linux-x86_64
+</code></pre></div><p>Lo renombramos, le damos derechos de ejecución y lo colocamos en un directorio de ejecutables del sistema:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">mv docker-compose-linux-x86_64 docker-compose
+chmod +x docker-compose
+mv docker-compose /usr/local/bin
+</code></pre></div><p>Comprobamos que todo funciona:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">docker-compose -h
+</code></pre></div><p><a href="#top">[Top]</a></p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
