@@ -98,6 +98,10 @@
       <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
     </li>
     
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
   </ul>
 </div>
 
@@ -109,13 +113,15 @@
 <div class="content ">
   <h1 id="a-nametopa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
 <ul>
-<li><a href="#u20s">Ubuntu Server 20.4</a></li>
-<li><a href="#d10s">Debian Server 10</a></li>
-<li><a href="#d11s">Debian Server 11</a></li>
+<li><a href="#u20s">[Ubuntu Server 20.4]</a></li>
+<li><a href="#d10s">[Debian Server 10]</a></li>
+<li><a href="#d11s">[Debian Server 11]</a></li>
+<li><a href="#fd36s">[Fedora 36 Server]</a></li>
 </ul>
 <hr>
 <p>Para realizar los laboratorios necesitaremos desplegar una serie de hosts con características comunes. Aquí estan los check list que utilizo para los hosts y  así poder tener control de las plantillas base que posteriormente se utilizaran para los laboratorios.</p>
-<h3 id="a-nameu20saubuntu-server-204"><!-- raw HTML omitted --><!-- raw HTML omitted -->Ubuntu Server 20.4</h3>
+<h1 id="a-nameu20sa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<h3 id="ubuntu-server-204">Ubuntu Server 20.4</h3>
 <p>Caracteristicas:</p>
 <ul>
 <li>Version: 20.04</li>
@@ -191,7 +197,8 @@ reboot
 <li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
 </ul>
 <p><a href="#top">[Top]</a></p>
-<h3 id="a-named10sadebian-server-10"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 10</h3>
+<h1 id="a-named10sa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<h3 id="debian-server-10">Debian Server 10</h3>
 <p>Caracteristicas:</p>
 <ul>
 <li>Version: 10</li>
@@ -258,7 +265,8 @@ reboot
 <li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
 </ul>
 <p><a href="#top">[Top]</a></p>
-<h3 id="a-named11sadebian-server-11"><!-- raw HTML omitted --><!-- raw HTML omitted -->Debian Server 11</h3>
+<h1 id="a-named11sa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<h3 id="debian-server-11">Debian Server 11</h3>
 <p>Caracteristicas:</p>
 <ul>
 <li>Version: 11</li>
@@ -311,6 +319,67 @@ reboot
 </code></pre></div></li>
 <li><input checked="" disabled="" type="checkbox"> Verificar que todos los serviciios arrancan correctamente.
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl list-unit-files <span class="p">|</span> grep -i failed
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar errores.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dmesg <span class="p">|</span> grep -i failed
+</code></pre></div><p>Cambiar Pantalla/Controlador gráfico VBoxSVGA o VBoxVGA</p>
+</li>
+</ul>
+<p>Usando plantilla :</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Cambiar hostname</li>
+<li><input checked="" disabled="" type="checkbox"> Cambiar ip</li>
+<li><input checked="" disabled="" type="checkbox"> Generar llaves ssh servidor</li>
+<li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
+</ul>
+<p><a href="#top">[Top]</a></p>
+<h1 id="a-namefd36sa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<h3 id="fedora-36-server">Fedora 36 Server</h3>
+<p>Caracteristicas:</p>
+<ul>
+<li>Version: 32</li>
+<li>Instalación server.</li>
+<li>Ip fija (ipv4).</li>
+<li>Deshabilitado ipv6 en la instalación.</li>
+<li>Servidor ssh.</li>
+<li>Audio deshabilitado.</li>
+<li>root activo.</li>
+<li>Usuario creado, &ldquo;sistemas&rdquo;.</li>
+</ul>
+<p>Configuración aplicada:</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Copiar llave ssh acceso remoto.</li>
+<li><input checked="" disabled="" type="checkbox"> Software necesario.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dnf install dkms kernel-devel gcc bzip2 make curl
+rpm -qa kernel-devel
+dnf update kernel-*
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Deshabilitar password sudo usuario sistemas.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">visudo
+//////
+%wheel  <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span>       ALL
+sistemas <span class="nv">ALL</span><span class="o">=</span>NOPASSWD: ALL
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar ipv 6 esta dishabilitado.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ip a
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Actualizar sistema.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dnf upgrade
+reboot
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Instalacion Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">mount /dev/cdrom /mnt
+<span class="nb">cd</span> /mnt
+./VBoxLinuxAdditions.run
+<span class="nb">cd</span>
+umount /mnt
+reboot
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que las Virtual Box Guest Adittions.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl status vboxadd
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Verificar que todos los serviciios arrancan correctamente.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl --failed
 </code></pre></div></li>
 <li><input checked="" disabled="" type="checkbox"> Verificar errores.
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dmesg <span class="p">|</span> grep -i failed

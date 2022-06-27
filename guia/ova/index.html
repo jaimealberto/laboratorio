@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Overview - Laboratorio</title>
+  <title>OvA - Laboratorio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
@@ -18,7 +18,7 @@
 
 </head>
 
-<body class='page page-default-list'>
+<body class='page page-default-single'>
   <div id="main-menu-mobile" class="main-menu-mobile">
   <ul>
     
@@ -29,7 +29,7 @@
       </a>
     </li>
     
-    <li class="menu-item-guia active">
+    <li class="menu-item-guia">
       <a href="/guia/">
         <span>Guia</span>
       </a>
@@ -56,7 +56,7 @@
       </a>
     </li>
     
-    <li class="menu-item-guia active">
+    <li class="menu-item-guia">
       <a href="/guia/">
         <span>Guia</span>
       </a>
@@ -98,7 +98,7 @@
       <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
     </li>
     
-    <li class="">
+    <li class="active ">
       <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
     </li>
     
@@ -109,38 +109,31 @@
         </div>
         <div class="col-12 col-md-9">
           
-
-<span class="overview">Overview</span>
-<h1 class="title">Overview</h1>
-<div class="content">
-  <h2 id="overview">Overview</h2>
-<p>Esta es mi referencia y guía para la configuración de mis laboratorios. Un referencia personal que tiene como objetivo estar disponible para poder ser consultada desde cualquier sitio con conexión a Internet, si le es útil para alguien aquí queda disponible..</p>
+<h1 class="title">OvA</h1>
+<div class="content ">
+  <h1 id="a-nametopa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+<ul>
+<li><a href="#ubuntu">Ubuntu Server</a></li>
+</ul>
+<hr>
+<p>Muchas soluciones de software nos proveen ovas para poder realizar pruebas. La mayoría por no decir todas en idioma y teclado no es en Español, la zona horaria no es la nuestra, etc. La mayoría basadas en Ubuntu Server, según aparezcan mas actualizare esta documentación. Están son mis notas para poder cambiar todo esto:</p>
+<h3 id="a-nameubuntuaubuntu-server"><!-- raw HTML omitted --><!-- raw HTML omitted -->Ubuntu Server</h3>
+<ul>
+<li>Zona horaria</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
+</code></pre></div><ul>
+<li>Idioma</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dpkg-reconfigure locale
+</code></pre></div><ul>
+<li>Mapa de teclado</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dpkg-reconfigure locale
+</code></pre></div><p><a href="#top">[Top]</a></p>
 
 </div>
-
-
-<div class="summary mb-2">
-  
-  <h2 class="title-summary"><a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a></h2>
-  <p>Instalando lo necesario.</p>
 </div>
-
-
-<div class="summary mb-2">
-  
-  <h2 class="title-summary"><a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a></h2>
-  <p>Trabajando con plantillas, Virtual Box.</p>
-</div>
-
-
-<div class="summary mb-2">
-  
-  <h2 class="title-summary"><a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a></h2>
-  <p>Trabajando con plantillas, Virtual Box.</p>
-</div>
-
-
-
 
         </div>
       </div>

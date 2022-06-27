@@ -5,7 +5,7 @@
     <link>https://laboratorio.jaimealberto.io/</link>
     <description>Recent content on Laboratorio</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://laboratorio.jaimealberto.io/index.xml" rel="self" type="application/rss+xml" />
+    <language>es</language><atom:link href="https://laboratorio.jaimealberto.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Herramientas</title>
       <link>https://laboratorio.jaimealberto.io/guia/herramientas/</link>
@@ -21,6 +21,15 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://laboratorio.jaimealberto.io/guia/plantillas/</guid>
+      <description>Trabajando con plantillas, Virtual Box.</description>
+    </item>
+    
+    <item>
+      <title>OvA</title>
+      <link>https://laboratorio.jaimealberto.io/guia/ova/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://laboratorio.jaimealberto.io/guia/ova/</guid>
       <description>Trabajando con plantillas, Virtual Box.</description>
     </item>
     
