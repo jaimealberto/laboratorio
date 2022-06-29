@@ -111,16 +111,18 @@
           
 <h1 class="title">Herramientas</h1>
 <div class="content ">
-  <h1 id="a-nametopa"><!-- raw HTML omitted --><!-- raw HTML omitted --></h1>
+  <!-- raw HTML omitted -->
 <ul>
-<li><a href="#VirtualBox">VirtualBox</a></li>
-<li><a href="#Terraform">Terraform</a></li>
-<li><a href="#Ansible">Ansible</a></li>
-<li><a href="#Powershell">Powershell</a></li>
-<li><a href="#Docker-Compose">Docker-Compose</a></li>
+<li><a href="#id1">VirtualBox</a></li>
+<li><a href="#id2">Terraform</a></li>
+<li><a href="#id3">Ansible</a></li>
+<li><a href="#id4">Powershell</a></li>
+<li><a href="#id5">Docker</a></li>
+<li><a href="#id6">Docker-Compose</a></li>
 </ul>
 <hr>
-<h4 id="a-namevirtualboxavirtualbox"><!-- raw HTML omitted --><!-- raw HTML omitted -->VirtualBox</h4>
+<!-- raw HTML omitted -->
+<h4 id="virtualboxa-namevirtualboxa">VirtualBox<!-- raw HTML omitted --><!-- raw HTML omitted --></h4>
 <p>La instalación de Virtual Box la realizaremos desde los repositorios oficiales de Virtual Box para así estar siempre actualizados a ultimas versiones.</p>
 <p>Desde nuestro terminal como root:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- <span class="p">|</span> apt-key add -
@@ -129,8 +131,9 @@ wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- <span class="p">
 apt update
 apt install virtualbox-6.1
 </code></pre></div><p>En este caso la ultima versión disponible es la  6.1</p>
-<p><a href="#top">[Top]</a></p>
-<h4 id="a-nameterraformaterraform"><!-- raw HTML omitted --><!-- raw HTML omitted -->Terraform</h4>
+<p><a href="#id0">Top</a></p>
+<!-- raw HTML omitted -->
+<h4 id="terraforma-nameterraforma">Terraform<!-- raw HTML omitted --><!-- raw HTML omitted --></h4>
 <p>La instalación de Terraform la realizaremos desde los repositorios oficiales de Hasicorp para así estar siempre actualizados a ultimas versiones.</p>
 <p>Desde nuestro terminal como root:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get update <span class="o">&amp;&amp;</span> apt-get install -y gnupg software-properties-common curl
@@ -140,16 +143,18 @@ apt-get update
 apt-get install terraform
 </code></pre></div><p>Comprobamos que todo funciona:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">terraform -v
-</code></pre></div><p><a href="#top">[Top]</a></p>
-<h4 id="a-nameansibleaansible"><!-- raw HTML omitted --><!-- raw HTML omitted -->Ansible</h4>
+</code></pre></div><p><a href="#id0">Top</a></p>
+<!-- raw HTML omitted -->
+<h4 id="ansiblea-nameansiblea">Ansible<!-- raw HTML omitted --><!-- raw HTML omitted --></h4>
 <p>La instalación de Ansible la realizaremos desde los repositorios de nuestra distribución.</p>
 <p>Desde nuestro terminal como root:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get install python3 python3-pip
 pip3 install ansible
 </code></pre></div><p>Comprobamos que todo funciona:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ansible --version
-</code></pre></div><p><a href="#top">[Top]</a></p>
-<h4 id="a-namepowershellapowershell"><!-- raw HTML omitted --><!-- raw HTML omitted -->Powershell</h4>
+</code></pre></div><p><a href="#id0">Top</a></p>
+<!-- raw HTML omitted -->
+<h4 id="powershella-namepowershella">Powershell<!-- raw HTML omitted --><!-- raw HTML omitted --></h4>
 <p>La instalación de Powershell la realizaremos desde los repositorios oficiales de Microsoft para así estar siempre actualizados a ultimas versiones.</p>
 <p>Desde nuestro terminal como root:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update  <span class="o">&amp;&amp;</span> apt install -y curl gnupg apt-transport-https
@@ -159,8 +164,9 @@ apt update
 apt install powershell
 </code></pre></div><p>Comprobamos que todo funciona:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pwsh
-</code></pre></div><p><a href="#top">[Top]</a></p>
-<h4 id="a-namedockeradocker"><!-- raw HTML omitted --><!-- raw HTML omitted -->Docker</h4>
+</code></pre></div><p><a href="#id0">Top</a></p>
+<!-- raw HTML omitted -->
+<h4 id="dockera-namedockera">Docker<!-- raw HTML omitted --><!-- raw HTML omitted --></h4>
 <p>La instalación de Docker la realizaremos desde los repositorios oficiales de <a href="https://docs.docker.com/engine/install/debian/#install-using-the-repository">Docker</a> para así estar siempre actualizados a ultimas versiones.</p>
 <p>Desde nuestro terminal como root añadimos los el repositorio:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt remove docker docker-engine docker.io containerd runc
@@ -175,8 +181,9 @@ curl -fsSL https://download.docker.com/linux/debian/gpg <span class="p">|</span>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get install docker-ce<span class="o">=</span>&lt;VERSION_STRING&gt; docker-ce-cli<span class="o">=</span>&lt;VERSION_STRING&gt; containerd.io docker-compose-plugin
 </code></pre></div><p>Comprobamos que todo funciona:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">docker run hello-world
-</code></pre></div><p><a href="#top">[Top]</a></p>
-<h4 id="a-namedocker-composeadocker-compose"><!-- raw HTML omitted --><!-- raw HTML omitted -->Docker-Compose</h4>
+</code></pre></div><p><a href="#id0">Top</a></p>
+<!-- raw HTML omitted -->
+<h4 id="docker-compose">Docker-Compose</h4>
 <p>Descargamos la ultima versión del binario desde el proyecto de <a href="https://github.com/docker/compose/releases">GitHub</a></p>
 <p>Desde nuestro terminal como root:</p>
 <p>Descargamos la ultima versión del binario que corresponda a nuestra arquitectura, ejemplo:</p>
@@ -187,7 +194,7 @@ chmod +x docker-compose
 mv docker-compose /usr/local/bin
 </code></pre></div><p>Comprobamos que todo funciona:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">docker-compose -h
-</code></pre></div><p><a href="#top">[Top]</a></p>
+</code></pre></div><p><a href="#id0">Top</a></p>
 
 </div>
 </div>
