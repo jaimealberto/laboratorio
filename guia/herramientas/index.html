@@ -179,7 +179,10 @@ curl -fsSL https://download.docker.com/linux/debian/gpg <span class="p">|</span>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-cache madison docker-ce
 </code></pre></div><p>Instalamos la versión que queramos:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get install docker-ce<span class="o">=</span>&lt;VERSION_STRING&gt; docker-ce-cli<span class="o">=</span>&lt;VERSION_STRING&gt; containerd.io docker-compose-plugin
-</code></pre></div><p>Comprobamos que todo funciona:</p>
+</code></pre></div><p>Para poder ejecutar docker con nuestro usuario:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo usermod -aG docker <span class="nv">$USER</span>
+</code></pre></div><p><strong>Nota</strong> Es necesario salir y hacer login de nuevo para aplicar el cambio anterior.</p>
+<p>Comprobamos que todo funciona:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">docker run hello-world
 </code></pre></div><p><a href="#id0">Top</a></p>
 <!-- raw HTML omitted -->
