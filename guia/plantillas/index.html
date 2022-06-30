@@ -259,10 +259,20 @@ reboot
 </ul>
 <p>Usando plantilla :</p>
 <ul>
-<li><input checked="" disabled="" type="checkbox"> Cambiar hostname</li>
-<li><input checked="" disabled="" type="checkbox"> Cambiar ip</li>
-<li><input checked="" disabled="" type="checkbox"> Generar llaves ssh servidor</li>
-<li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
+<li><input checked="" disabled="" type="checkbox"> Cambiar hostname.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">hostnamectl set-hostname nuevonombre
+vi /etc/hosts
+hostnamectl
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Cambiar ip (/etc/network/interfaces)</li>
+<li><input checked="" disabled="" type="checkbox"> Generar llaves ssh servidor y reuniciar el servicio.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">rm -v /etc/ssh/ssh_host_*
+dpkg-reconfigure openssh-server
+systemctl ssh
+</code></pre></div></li>
+<li><input checked="" disabled="" type="checkbox"> Actualizar el sistema y reiniciar.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt update <span class="o">&amp;&amp;</span> apt list --upgradable <span class="o">&amp;&amp;</span> apt upgrade -y
+</code></pre></div></li>
 </ul>
 <p><a href="#id0">Top</a></p>
 <!-- raw HTML omitted -->
