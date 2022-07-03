@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>OvA - Laboratorio</title>
+  <title>Lab00 - Laboratorio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
@@ -98,11 +98,11 @@
       <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
     </li>
     
-    <li class="active ">
+    <li class="">
       <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
     </li>
     
-    <li class="">
+    <li class="active ">
       <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00</a>
     </li>
     
@@ -113,29 +113,15 @@
         </div>
         <div class="col-12 col-md-9">
           
-<h1 class="title">OvA</h1>
+<h1 class="title">Lab00</h1>
 <div class="content ">
-  <!-- raw HTML omitted -->
-<ul>
-<li><a href="#id1">Ubuntu Server</a></li>
-</ul>
-<hr>
-<p>Muchas soluciones de software nos proveen ovas para poder realizar pruebas. La mayoría por no decir todas en idioma y teclado no es en Español, la zona horaria no es la nuestra, etc. La mayoría basadas en Ubuntu Server, según aparezcan mas actualizare esta documentación. Están son mis notas para poder cambiar todo esto:</p>
-<!-- raw HTML omitted -->
-<h3 id="ubuntu-server">Ubuntu Server</h3>
-<ul>
-<li>Zona horaria</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
-</code></pre></div><ul>
-<li>Idioma</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dpkg-reconfigure locale
-</code></pre></div><ul>
-<li>Mapa de teclado</li>
-</ul>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dpkg-reconfigure locale
-</code></pre></div><p><a href="#id0">Top</a></p>
+  <h2 id="objetivo">Objetivo</h2>
+<p>Instalación rápida utilizando el asistente, se instalaran todos los componentes en un solo hosts.El objetivo es comenzar a trabajar lo antes poisble con la infraestructura.</p>
+<h2 id="instalación">Instalación</h2>
+<p>O.S.: Ubuntu 20.04 Server</p>
+<p>Desde el terminal arrancamos el asistente:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">curl -sO https://packages.wazuh.com/4.3/wazuh-install.sh <span class="o">&amp;&amp;</span> sudo bash ./wazuh-install.sh -a
+</code></pre></div><p>Al terminar nos indica en usuario y la contraseña para acceder dese el navegador. Esto es una instalación básica con el objetivo de poder empezar a practicar. En la siguiente guía veremos como hacer la instalación con múltiples nodos.</p>
 
 </div>
 </div>

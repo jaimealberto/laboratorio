@@ -102,6 +102,10 @@
       <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
     </li>
     
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00</a>
+    </li>
+    
   </ul>
 </div>
 
@@ -186,12 +190,14 @@ reboot
 </code></pre></div></li>
 <li><input checked="" disabled="" type="checkbox"> Verificar errores.
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dmesg <span class="p">|</span> grep -i failed
-</code></pre></div><p>Cambiar Pantalla/Controlador gráfico VBoxSVGA o VBoxVGA</p>
+</code></pre></div><p>Cambiar Pantalla/Controlador gráfico VBoxSVGA o VBoxVGA
+Usando plantilla :</p>
 </li>
-</ul>
-<p>Usando plantilla :</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Cambiar hostname</li>
+<li><input checked="" disabled="" type="checkbox"> Cambiar hostname.
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">hostnamectl set-hostname nuevonombre
+vi /etc/hosts
+hostnamectl
+</code></pre></div></li>
 <li><input checked="" disabled="" type="checkbox"> Cambiar ip</li>
 <li><input checked="" disabled="" type="checkbox"> Generar llaves ssh servidor</li>
 <li><input checked="" disabled="" type="checkbox"> apt update &amp;&amp; apt list &ndash;upgradable &amp;&amp; apt upgrade -y</li>
