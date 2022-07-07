@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Lab01 Wazuh desplegando agentes modo manual - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Lab01 Wazuh desplegando agentes modo manual</h1>
+<div class="content ">
+  <h2 id="objetivo">Objetivo</h2>
+<p>En esta ocasión vamos a ver varios ejemplos de como desplegar agentes manualmente en varios tipos de hosts para los que Wazuh si tiene agente propio. Ya se que esto esta totalmente fuera de lugar pues deberíamos automatizar el proceso, cosa que vernos mas adelante utilizando herramientas diseñadas para este fin, pero es la mejor manera de entender el proceso.</p>
+<p>Nos dirigimos desde el menú principal a la sección de agentes:
+<figure>
+    <img src="step00.png"/> 
+</figure>
+</p>
+<p>Dentro de la pantalla de gestión de agentes vamos a Deploy new agent
+<figure>
+    <img src="step01.png"/> 
+</figure>
+</p>
+<h3 id="windows">Windows</h3>
+<p>Comenzamos con un agente en Windows, con lo cual seleccionamos los valores que se ven en la siguiente captura, teniendo en cuenta la dirección ip donde estará escuchando nuestro servidor de Wazuh ( Wazuh Manager ) y le asignaremos el grupo por defecto ( default ).
+<figure>
+    <img src="step02w.png"/> 
+</figure>
+</p>
+<p>Como se puede observar nos indica los requerimientos del sistema remoto, y los comandos que tendremos que ejecutar desde una powershell con privilegios de administrador.</p>
+<p>Instalamos:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="n">https</span><span class="err">:</span><span class="p">//</span><span class="n">packages</span><span class="p">.</span><span class="n">wazuh</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">4</span><span class="p">.</span><span class="n">x</span><span class="p">/</span><span class="n">windows</span><span class="p">/</span><span class="n">wazuh-agent</span><span class="p">-</span><span class="n">4</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">5</span><span class="p">-</span><span class="n">1</span><span class="p">.</span><span class="n">msi</span> <span class="n">-OutFile</span> <span class="p">${</span><span class="n">env</span><span class="err">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">wazuh-agent</span><span class="p">-</span><span class="n">4</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">5</span><span class="p">.</span><span class="n">msi</span><span class="p">;</span> <span class="n">msiexec</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">i</span> <span class="p">${</span><span class="n">env</span><span class="err">:</span><span class="n">tmp</span><span class="p">}\</span><span class="n">wazuh-agent</span><span class="p">-</span><span class="n">4</span><span class="p">.</span><span class="n">3</span><span class="p">.</span><span class="n">5</span><span class="p">.</span><span class="n">msi</span> <span class="p">/</span><span class="n">q</span> <span class="n">WAZUH_MANAGER</span><span class="p">=</span><span class="s1">&#39;10.0.0.23&#39;</span> <span class="n">WAZUH_REGISTRATION_SERVER</span><span class="p">=</span><span class="s1">&#39;10.0.0.23&#39;</span> <span class="n">WAZUH_AGENT_GROUP</span><span class="p">=</span><span class="s1">&#39;default&#39;</span> 
+</code></pre></div><p>Arrancamos el servicio:</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">NET</span> <span class="nb">START </span><span class="n">WazuhSvc</span>
+</code></pre></div><p>Como se pude observar en el siguiente vídeo descarga el agente y lo instala ya configurado. Es importante revisar que el agente arranca correctamente como se puede observar al ejecutar el comando correspondiente después de la instalación.
+<figure>
+    <img src="Windows.gif"/> 
+</figure>
+</p>
+<h3 id="linux">Linux</h3>
+<p>Ahora vamos con un agente en Linux, concretamente para Debian / Ubuntu  en arquitectura x86_64 , con lo cual seleccionamos los valores que se ven en la siguiente captura, teniendo en cuenta la dirección ip donde estará escuchando nuestro servidor de Wazuh ( Wazuh Manager ) y le asignaremos el grupo por defecto ( default ).</p>
+<figure>
+    <img src="step02l.png"/> 
+</figure>
+
+<p>Como root desde un terminal:</p>
+<p>Instalamos:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">curl -so wazuh-agent-4.3.5.deb https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.3.5-1_amd64.deb <span class="o">&amp;&amp;</span> sudo <span class="nv">WAZUH_MANAGER</span><span class="o">=</span><span class="s1">&#39;10.0.0.23&#39;</span> <span class="nv">WAZUH_AGENT_GROUP</span><span class="o">=</span><span class="s1">&#39;default&#39;</span> dpkg -i ./wazuh-agent-4.3.5.deb
+</code></pre></div><p>Arrancamos el servicio según nuestro gestor de servicios:</p>
+<ul>
+<li>Systemd</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo systemctl daemon-reload
+sudo systemctl <span class="nb">enable</span> wazuh-agent
+sudo systemctl start wazuh-agent
+</code></pre></div><ul>
+<li>SysV Init</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">sudo update-rc.d wazuh-agent defaults <span class="m">95</span> <span class="m">10</span>
+sudo service wazuh-agent start
+</code></pre></div><p>Como se pude observar en el siguiente vídeo descarga el agente, lo instala ya configurado y lo arrancamos.
+<figure>
+    <img src="Linux.gif"/> 
+</figure>
+</p>
+<p>Bueno pues como podemos observar en la siguiente pantalla:
+<figure>
+    <img src="Agentes.png"/> 
+</figure>
+</p>
+<p>Nuestro laboratorio ya parece que va arrancando poco a poco, se pueden ver ya varios agentes instalados.</p>
+<h2 id="problemas-comunes">Problemas comunes</h2>
+<ul>
+<li>
+<p>No tenemos conexión a Internet. Podemos descargar el agente desde otro hosts y pasarlo a este para su ejecución desde <a href="https://documentation.wazuh.com/current/installation-guide/packages-list.html">aquí</a>. Es importante a parte de seleccionar el paquete de instalación correcto verificar la ves ion como se puede observar en la siguiente imagen.
+<figure>
+    <img src="Version.png"/> 
+</figure>
+</p>
+</li>
+<li>
+<p>Permisos de ejecución como administrador del host donde se realiza la instalación.</p>
+</li>
+<li>
+<p>No tenemos comunicación por los puertos necesarios para conectar con el Wazuh Manager. Tendremos que revisar los puertos habilitados para la comunicación entre el agente y el manager que son:</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">1514/TCP para la comunicación con el agente.
+1515/TCP para el registro de la configuración del agente.
+55000/TCP para el registro utilizando API del gestor.
+</code></pre></div>
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
