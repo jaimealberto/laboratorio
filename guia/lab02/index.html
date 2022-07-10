@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Lab00 Wazuh All in One - Laboratorio</title>
+  <title>Lab02 Wazuh controlando agentes - Laboratorio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
@@ -102,7 +102,7 @@
       <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
     </li>
     
-    <li class="active ">
+    <li class="">
       <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
     </li>
     
@@ -110,7 +110,7 @@
       <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
     </li>
     
-    <li class="">
+    <li class="active ">
       <a href="https://laboratorio.jaimealberto.io/guia/lab02/">Lab02 Wazuh controlando agentes</a>
     </li>
     
@@ -121,36 +121,37 @@
         </div>
         <div class="col-12 col-md-9">
           
-<h1 class="title">Lab00 Wazuh All in One</h1>
+<h1 class="title">Lab02 Wazuh controlando agentes</h1>
 <div class="content ">
   <h2 id="objetivo">Objetivo</h2>
-<p>Instalación rápida utilizando el asistente, se instalaran todos los componentes en un solo hosts. El objetivo es comenzar a trabajar lo antes posible con la infraestructura.</p>
-<h2 id="instalación">Instalación</h2>
-<p>La instalación se realiza en un host virtual en Virtual Box con la siguiente configuración de hardware:</p>
-<figure>
-    <img src="hosts.png"/> 
-</figure>
-
-<p>Desde el terminal arrancamos el asistente:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">curl -sO https://packages.wazuh.com/4.3/wazuh-install.sh <span class="o">&amp;&amp;</span> sudo bash ./wazuh-install.sh -a
+<p>El este laboratorio veremos como poder interactuar con los agentes para su control y actualización. También veremos practicas con grupos de agentes para poder distribuir configuraciones. Todos los binarios de control se encuentran en var/ossec/bin. Los que utilizaremos serán los siguientes:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">agent_control
+agent_groups
+agent_upgrade
+manage_agents
+</code></pre></div><h3 id="agent_control">agent_control</h3>
+<p>Su función es el control remoto de los agentes. Lo utilizaremos para lo tipico de arrancar, parar, ver el estado, etc. Algún ejemplo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">./agent_control -l <span class="o">&amp;&amp;</span> ./agent_control -lc <span class="o">&amp;&amp;</span> ./agent_control -ln <span class="o">&amp;&amp;</span> ./agent_control -R -a
 </code></pre></div><figure>
-    <img src="install.gif"/> 
+    <img src="control.gif"/> 
 </figure>
 
-<p>Como se puede observar por el <a href="https://es.wikipedia.org/wiki/Marca_temporal">timestamp</a>, la captura esta acelerada, la instalación no dura mas de 10 minutos y nos dela un log en varlog/wazuh-install.log. Es importante guardar el usuario y la contraseña que genera autocomplaciente al final de la instalación, en el log no la guarda. El log solo se podrá revisar como root.</p>
-<p>Al terminar nos indica en usuario y la contraseña para acceder dese el navegador. Esto es una instalación básica con el objetivo de poder empezar a practicar.</p>
-<p>Abrimos un navegador, https://<!-- raw HTML omitted --></p>
-<p>Nos solicitara usuario y contraseña:</p>
-<figure>
-    <img src="login0.png"/> 
-</figure>
-
-<p>y ya tenemos nuestro Wazuh para empezar a cacharrear.</p>
-<figure>
-    <img src="login.png"/> 
-</figure>
-
-<p>En siguientes laboratorios veremos como desplegar agentes, implementar nuevas funcionalidades, generación de alertas, instalación con múltiples nodos indexer, distribución de nuevas configuraciones, actualización de agentes, etc.</p>
+<h3 id="agent_groups">agent_groups</h3>
+<p>Con este comando podemos gestionar grupos de agentes. Un agente puede estar en uno o varios grupos. Esto es muy util para realizar tareas sobre grupos de hosts, un ejemplo es la configuración remota especifica para un grupo de hosts. En próximos laboratorios veremos en la practica la utilidad de los grupos.</p>
+<h3 id="agent_upgrade">agent_upgrade</h3>
+<p>Con este comando podremos actualizar remotamente los agentes desplegados.</p>
+<h3 id="manage_agents">manage_agents</h3>
+<p>Utilidad interactiva en consola que nos muestra un menú para interactuar con los agentes:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">****************************************
+* Wazuh v4.3.5 Agent manager.          *
+* The following options are available: *
+****************************************
+   <span class="o">(</span>A<span class="o">)</span>dd an agent <span class="o">(</span>A<span class="o">)</span>.
+   <span class="o">(</span>E<span class="o">)</span>xtract key <span class="k">for</span> an agent <span class="o">(</span>E<span class="o">)</span>.
+   <span class="o">(</span>L<span class="o">)</span>ist already added agents <span class="o">(</span>L<span class="o">)</span>.
+   <span class="o">(</span>R<span class="o">)</span>emove an agent <span class="o">(</span>R<span class="o">)</span>.
+   <span class="o">(</span>Q<span class="o">)</span>uit.
+</code></pre></div><p><strong>Ejecutando únicamente cada uno de los comandos nos mostrara una clara guia de uso.</strong></p>
 
 </div>
 </div>
