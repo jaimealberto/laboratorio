@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Lab03 Wazuh Vulnerability Detector - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab02/">Lab02 Wazuh controlando agentes</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab03/">Lab03 Wazuh Vulnerability Detector</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Lab03 Wazuh Vulnerability Detector</h1>
+<div class="content ">
+  <h2 id="objetivo">Objetivo</h2>
+<p>En este laboratorio vamos activar el detector de vulnerabilidades. Es necesario activar el modulo tanto en la parte del servidor como en los clientes. La activación en los clientes es diferente si son clientes   tipo Windows o tipo Linux. También aprovecharemos para aprender como trabajar con grupos y distribuir configuraciones desde el servidor.</p>
+<h2 id="configuración">Configuración</h2>
+<p>La configuración se tiene que realizar en las dos partes, tanto servidor como cliente.</p>
+<h2 id="servidor">Servidor</h2>
+<p>En la parte del servidor tendremos que editar el fichero de configuración var/etc/ossec/ossec.conf del siguiente modo:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">&lt;ossec_config&gt;
+&lt;vulnerability-detector&gt;
+    &lt;enabled&gt;yes&lt;/enabled&gt;
+    &lt;interval&gt;5m&lt;/interval&gt;
+    &lt;ignore_time&gt;6h&lt;/ignore_time&gt;
+    &lt;run_on_start&gt;yes&lt;/run_on_start&gt;
+
+    &lt;!-- Ubuntu OS vulnerabilities --&gt;
+    &lt;provider <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;canonical&#34;</span>&gt;
+    &lt;enabled&gt;yes&lt;/enabled&gt;
+    &lt;os&gt;trusty&lt;/os&gt;
+    &lt;os&gt;xenial&lt;/os&gt;
+    &lt;os&gt;bionic&lt;/os&gt;
+    &lt;os&gt;focal&lt;/os&gt;
+    &lt;update_interval&gt;1h&lt;/update_interval&gt;
+    &lt;/provider&gt;
+
+    &lt;!-- Debian OS vulnerabilities --&gt;
+    &lt;provider <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;debian&#34;</span>&gt;
+    &lt;enabled&gt;yes&lt;/enabled&gt;
+    &lt;os&gt;stretch&lt;/os&gt;
+    &lt;os&gt;buster&lt;/os&gt;
+    &lt;update_interval&gt;1h&lt;/update_interval&gt;
+    &lt;/provider&gt;
+
+    &lt;!-- RedHat OS vulnerabilities --&gt;
+    &lt;provider <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;redhat&#34;</span>&gt;
+    &lt;enabled&gt;yes&lt;/enabled&gt;
+    &lt;os&gt;5&lt;/os&gt;
+    &lt;os&gt;6&lt;/os&gt;
+    &lt;os&gt;7&lt;/os&gt;
+    &lt;os&gt;8&lt;/os&gt;
+    &lt;os <span class="nv">allow</span><span class="o">=</span><span class="s2">&#34;Centos Linux-8&#34;</span>&gt;8&lt;/os&gt;
+    &lt;update_interval&gt;1h&lt;/update_interval&gt;
+    &lt;/provider&gt;
+
+    &lt;!-- Windows OS vulnerabilities --&gt;
+    &lt;provider <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;msu&#34;</span>&gt;
+    &lt;enabled&gt;yes&lt;/enabled&gt;
+    &lt;url&gt;https://feed.wazuh.com/vulnerability-detector/windows/msu-updates.json.gz&lt;/url&gt;
+    &lt;update_interval&gt;1h&lt;/update_interval&gt;
+    &lt;/provider&gt;
+
+    &lt;!-- Aggregate vulnerabilities --&gt;
+    &lt;provider <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;nvd&#34;</span>&gt;
+    &lt;enabled&gt;yes&lt;/enabled&gt;
+    &lt;update_from_year&gt;2010&lt;/update_from_year&gt;
+    &lt;update_interval&gt;1h&lt;/update_interval&gt;
+    &lt;/provider&gt;
+
+&lt;/vulnerability-detector&gt;
+&lt;/ossec_config&gt;
+</code></pre></div><p>Una vez modificado el fichero reiniciamos el servicio desde el terminal como root:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl restart wazuh-manager
+</code></pre></div><p>Al arrancar de nuevo el servicio de Wazuh-Manager y se descarga el listado de vulnerabilidades configurado anteriormente.</p>
+<p>La primera vez que realiza la descarga tarda bastante, pues la realiza completamente, luego solo actualiza. Por este motivo se aconseja solo tener activo lo que necesitemos según nuestra plataforma, es mas óptimo y rápido. Dado nuestra plataforma actual:
+<figure>
+    <img src="plataforma.png"/> 
+</figure>
+</p>
+<p>Solo dejaremos activo lo que necesitemos y así sera mas efectivo y rápido. Es importante tener en cuenta también el intervalo de actualización configurado.</p>
+<h2 id="agentes">Agentes</h2>
+<p>Como siempre tenemos las diferencias entre Windows y Linux, con lo cual vamos a crear dos grupos y sus configuraciones correspondientes para cada uno de ellos.</p>
+<h3 id="grupos">Grupos</h3>
+<p>Desde el terminal como root en el path de los binarios de Wazuh (/var/ossec/bin/)</p>
+<p>Listamos que grupos tenemos:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_groups </span>
+Groups <span class="o">(</span>1<span class="o">)</span>:
+  default <span class="o">(</span>3<span class="o">)</span>
+Unassigned agents: 0.
+</code></pre></div><p>Creamos dos grupos, uno para Linux otro para Windows:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_groups -a -g Windows</span>
+Do you want to create the group <span class="s1">&#39;Windows&#39;</span>? <span class="o">[</span>y/N<span class="o">]</span>: y
+Group <span class="s1">&#39;Windows&#39;</span> created.
+<span class="c1">#./agent_groups -a -g Linux</span>
+Do you want to create the group <span class="s1">&#39;Linux&#39;</span>? <span class="o">[</span>y/N<span class="o">]</span>: y
+Group <span class="s1">&#39;Linux&#39;</span> created.
+</code></pre></div><p>Teniendo estos agentes:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_control -l</span>
+
+Wazuh agent_control. List of available agents:
+   ID: 000, Name: wzuaio <span class="o">(</span>server<span class="o">)</span>, IP: 127.0.0.1, Active/Local
+   ID: 001, Name: db1000-01, IP: any, Active
+   ID: 002, Name: w1000-01, IP: any, Active
+   ID: 003, Name: ub200400-01, IP: any, Active
+
+List of agentless devices:
+</code></pre></div><p>Los id`s 001 y 003 los asociaremos al grupo Linux y el id 002 al grupo Windows:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_groups -a -i 001 -g Linux</span>
+Do you want to add the group <span class="s1">&#39;Linux&#39;</span> to the agent <span class="s1">&#39;001&#39;</span>? <span class="o">[</span>y/N<span class="o">]</span>: y
+Group <span class="s1">&#39;Linux&#39;</span> added to agent <span class="s1">&#39;001&#39;</span>.
+<span class="c1">#./agent_groups -a -i 003 -g Linux</span>
+Do you want to add the group <span class="s1">&#39;Linux&#39;</span> to the agent <span class="s1">&#39;003&#39;</span>? <span class="o">[</span>y/N<span class="o">]</span>: y
+Group <span class="s1">&#39;Linux&#39;</span> added to agent <span class="s1">&#39;003&#39;</span>.
+<span class="c1">#./agent_groups -a -i 002 -g Windows</span>
+Do you want to add the group <span class="s1">&#39;Windows&#39;</span> to the agent <span class="s1">&#39;002&#39;</span>? <span class="o">[</span>y/N<span class="o">]</span>: y
+Group <span class="s1">&#39;Windows&#39;</span> added to agent <span class="s1">&#39;002&#39;</span>.
+</code></pre></div><p>Comprobamos que todo esta en su sistio:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_groups -l -g Linux</span>
+<span class="m">2</span> agent<span class="o">(</span>s<span class="o">)</span> in group <span class="s1">&#39;Linux&#39;</span>:
+  ID: <span class="m">001</span>  Name: db1000-01.
+  ID: <span class="m">003</span>  Name: ub200400-01.
+<span class="c1">#./agent_groups -l -g Windows</span>
+<span class="m">1</span> agent<span class="o">(</span>s<span class="o">)</span> in group <span class="s1">&#39;Windows&#39;</span>:
+  ID: <span class="m">002</span>  Name: w1000-01.
+</code></pre></div><p>Ahora tendremos la siguiente estructura de directorios:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">/var/ossec/etc/shared/
+├── agent-template.conf
+├── ar.conf
+├── default
+│   ├── agent.conf
+│   ├── cis_apache2224_rcl.txt
+│   ├── cis_debian_linux_rcl.txt
+│   ├── cis_mysql5-6_community_rcl.txt
+│   ├── cis_mysql5-6_enterprise_rcl.txt
+│   ├── cis_rhel5_linux_rcl.txt
+│   ├── cis_rhel6_linux_rcl.txt
+│   ├── cis_rhel7_linux_rcl.txt
+│   ├── cis_rhel_linux_rcl.txt
+│   ├── cis_sles11_linux_rcl.txt
+│   ├── cis_sles12_linux_rcl.txt
+│   ├── cis_win2012r2_domainL1_rcl.txt
+│   ├── cis_win2012r2_domainL2_rcl.txt
+│   ├── cis_win2012r2_memberL1_rcl.txt
+│   ├── cis_win2012r2_memberL2_rcl.txt
+│   ├── merged.mg
+│   ├── rootkit_files.txt
+│   ├── rootkit_trojans.txt
+│   ├── system_audit_rcl.txt
+│   ├── system_audit_ssh.txt
+│   ├── win_applications_rcl.txt
+│   ├── win_audit_rcl.txt
+│   └── win_malware_rcl.txt
+├── Linux
+│   ├── agent.conf  ---&gt; fichero de configuración a distribuir en los miembros del grupo.
+│   └── merged.mg
+└── Windows
+    ├── agent.conf  ---&gt; fichero de configuración a distribuir en los miembros del grupo.
+    └── merged.mg
+
+</code></pre></div><h3 id="linux">Linux</h3>
+<p>Para agentes Linux el fichero tendrá este contenido:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">&lt;agent_config&gt;
+&lt;!-- System inventory --&gt;
+&lt;wodle <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;syscollector&#34;</span>&gt;
+  &lt;disabled&gt;no&lt;/disabled&gt;
+  &lt;interval&gt;1h&lt;/interval&gt;
+  &lt;scan_on_start&gt;yes&lt;/scan_on_start&gt;
+  &lt;hardware&gt;yes&lt;/hardware&gt;
+  &lt;os&gt;yes&lt;/os&gt;
+  &lt;network&gt;yes&lt;/network&gt;
+  &lt;packages&gt;yes&lt;/packages&gt;
+  &lt;ports <span class="nv">all</span><span class="o">=</span><span class="s2">&#34;no&#34;</span>&gt;yes&lt;/ports&gt;
+  &lt;processes&gt;yes&lt;/processes&gt;
+
+  &lt;!-- Database synchronization settings --&gt;
+  &lt;synchronization&gt;
+    &lt;max_eps&gt;10&lt;/max_eps&gt;
+  &lt;/synchronization&gt;
+&lt;/wodle&gt;
+&lt;/agent_config&gt;
+</code></pre></div><h3 id="windows">Windows</h3>
+<p>Para agentes Windows el fichero tendrá este contenido:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">&lt;agent_config&gt;
+&lt;!-- System inventory --&gt;
+&lt;wodle <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;syscollector&#34;</span>&gt;
+  &lt;disabled&gt;no&lt;/disabled&gt;
+  &lt;interval&gt;1h&lt;/interval&gt;
+  &lt;scan_on_start&gt;yes&lt;/scan_on_start&gt;
+  &lt;hardware&gt;yes&lt;/hardware&gt;
+  &lt;os&gt;yes&lt;/os&gt;
+  &lt;network&gt;yes&lt;/network&gt;
+  &lt;packages&gt;yes&lt;/packages&gt;
+  &lt;ports <span class="nv">all</span><span class="o">=</span><span class="s2">&#34;no&#34;</span>&gt;yes&lt;/ports&gt;
+  &lt;processes&gt;yes&lt;/processes&gt;
+  &lt;hotfixes&gt;yes&lt;/hotfixes&gt;
+
+  &lt;!-- Database synchronization settings --&gt;
+  &lt;synchronization&gt;
+    &lt;max_eps&gt;10&lt;/max_eps&gt;
+  &lt;/synchronization&gt;
+&lt;/wodle&gt;
+&lt;/agent_config&gt;
+</code></pre></div><p>Ahora verificamos que las configuraciones se sincronizaron correctamente:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_groups -S -i 001</span>
+Agent <span class="s1">&#39;001&#39;</span> is synchronized. 
+<span class="c1">#./agent_groups -S -i 002</span>
+Agent <span class="s1">&#39;002&#39;</span> is synchronized. 
+<span class="c1">#./agent_groups -S -i 003</span>
+Agent <span class="s1">&#39;003&#39;</span> is synchronized. 
+</code></pre></div><p>Bueno pues ya tenemos nuestro modulo configurado y en los próximos laboratorios seguiremos haciendo alguna cosa mas sobre el para dejarlo mas fino.</p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
