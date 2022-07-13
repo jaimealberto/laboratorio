@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Lab04 Wazuh Vulnerability Detector II - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab02/">Lab02 Wazuh controlando agentes</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab03/">Lab03 Wazuh Vulnerability Detector</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab04/">Lab04 Wazuh Vulnerability Detector II</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Lab04 Wazuh Vulnerability Detector II</h1>
+<div class="content ">
+  <h2 id="objetivo">Objetivo</h2>
+<p>En el laboratorio de hoy verificaremos el modulo de detector de vulnerabilidades, añadiremos mas clientes y lo configuraremos para clientes no soportados pero si compatibles.</p>
+<h2 id="estado-actual">Estado actual</h2>
+<p>El mapa del laboratorio es el siguiente:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">+----------+      +--------+           +----------+
+|          |      |        |           |          |&lt;--&gt; Lan 10.0.0.1/28
+|          |      |        |           | Firewall |
+| Internet |&lt;---&gt; | Router |&lt;---Wan---&gt;| OPNsense |&lt;--&gt; DMZINT 10.0.0.17/28
+|          |      |        |           |          |
+|          |      |        |           |          |&lt;--&gt; DMZEXT 10.0.0.33/28
++----------+      +--------+           +----------+
+</code></pre></div><table>
+<thead>
+<tr>
+<th>IP</th>
+<th>Hostname</th>
+<th>S.O.</th>
+<th>Zona</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.0.0.2</td>
+<td>db1000-01</td>
+<td>Debian 10 Desktop</td>
+<td>Lan</td>
+</tr>
+<tr>
+<td>10.0.0.3</td>
+<td>w1000-01</td>
+<td>Winodws 10</td>
+<td>Lan</td>
+</tr>
+<tr>
+<td>10.0.0.6</td>
+<td>ub200400-01</td>
+<td>Ubuntu 20.04 Server</td>
+<td>Lan</td>
+</tr>
+<tr>
+<td>10.0.0.22</td>
+<td>w201900-01</td>
+<td>Windows 2019 Server</td>
+<td>DMZINT</td>
+</tr>
+</tbody>
+</table>
+<h1 id="revisando">Revisando</h1>
+<p>Revisando los hosts ya vemos que se aplican los escaneos, si nos fijamos en ub200400-01 podemos observar lo siguiente:
+<figure>
+    <img src="ub2004-01ant.png"/> 
+</figure>
+</p>
+<p>Nos conectamos al host y realizamos una actualización del sistema y al pasar el siguiente escaneo cambian los valores:
+<figure>
+    <img src="ub2004-01post.png"/> 
+</figure>
+</p>
+<p>Como se puede observar se solucionan alguno de los problemas detectados. Ahora que ya sabemos que funciona la siguiente es por quien corresponda revisar los problemas de seguridad y ver como solucionarlos.</p>
+<p>Una de las cosas que me parecen muy interesantes es que se pueden realizar búsquedas por un CVE determinado y ver cuando se resolvió para realizar un seguimiento del estado. Vamos a ver un ejemplo, utilizamos como filtro data.vulnerability.cve:CVE-2022-28693 esto nos muestra en la tabla por el timestamp como fue evolucionando según los escaneod en el tiempo de resolución:
+<figure>
+    <img src="ub2004-01resolf.png"/> 
+</figure>
+</p>
+<p>Ahora vamos a realizar la misma operativa con un entorno Microsoft en nuestro hosts w201900-01
+y tenemos lo siguiente:
+<figure>
+    <img src="w2019-01ant.png"/> 
+</figure>
+</p>
+<p>Actualizamos nuestro sistema Windows y como no nos solicitara reiniciar. Al revisar de nuevo el nuestro Wazuh esta todo limpio como la patena.
+<figure>
+    <img src="w2019-01post.png"/> 
+</figure>
+</p>
+<h1 id="añadiendo-compatibilidad">Añadiendo compatibilidad</h1>
+<p>Tengo desplegado un hosts en la DMZEXT llamado rk86000-01 que tiene instalado Rocky Linux como servidor en su version 8.6 vamos a instalar el cliente en una versión anterior  para catalizar desde el servidor de Wazuh.. Luego lo añadiremos al grupo Linux y veremos que ajusta las configuraciones automáticamente.</p>
+<p>Pues ya lo tenemos desplegado pero observar la versión del agente:
+<figure>
+    <img src="rk8600-01new.png"/> 
+</figure>
+</p>
+<p>Como lo desplegamos con otra versión aquí se ve perfectamente. Esta en versión 4,2,7. Pues bien vamos a actualizar desde nuestro servidor Wazuh. Nos conectamos como ssh y  como root ejecutamos:</p>
+<ul>
+<li>Nos posicionamos en el path donde se encuentran los binarios de control:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#cd /var/ossec/bin</span>
+</code></pre></div><ul>
+<li>Listamos los agentes no actualizados para ver en que versión se encuentran y su id, que luego necesitaremos para realizar la actualización:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_control -l</span>
+</code></pre></div><ul>
+<li>Ejecutamos la actualizacion del id o id`s correspondientes para actualizar:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_upgrade -a 005</span>
+</code></pre></div><p>Como podemos observar tarda un poco la actualizar y al finalizar nos indica de que versión a que versión pasa el agente.
+<figure>
+    <img src="upgrade.gif"/> 
+</figure>
+</p>
+<p>Pues ya lo tenemos:
+<figure>
+    <img src="rk8600-01ok.png"/> 
+</figure>
+</p>
+<p>Bueno ahora lo añadimos al grupo Linux para que también se ejecute el modulo de detección de vulnerabilidades:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_groups -a -i 005 -g Linux</span>
+Do you want to add the group <span class="s1">&#39;Linux&#39;</span> to the agent <span class="s1">&#39;005&#39;</span>? <span class="o">[</span>y/N<span class="o">]</span>: y
+Group <span class="s1">&#39;Linux&#39;</span> added to agent <span class="s1">&#39;005&#39;</span>.
+</code></pre></div><p>Como podemos observar el agente ya esta en el grupo correspondiente:
+<figure>
+    <img src="rk8600-01gr.png"/> 
+</figure>
+</p>
+<p>Con lo cual damos por echo que al ser un sistema Linux basado en RedHat al ir al hosts dentro de vulnerabilidades tendríamos que ver su estado. Pues bien no es así. Vale reiniciamos en agente desde la consola en remoto:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#./agent_control -R -u 005</span>
+Wazuh agent_control: Restarting agent: <span class="m">005</span>
+</code></pre></div><p>Seguimos sin datos:
+<figure>
+    <img src="rk8600-01nov.png"/> 
+</figure>
+</p>
+<p>Pues bien vamos a solucionar este problema, tenemos los siguientes datos:</p>
+<ul>
+<li>Rocky Linux 8.6 es derivada de RedHat 8.</li>
+<li>Como identifica Wazuh Rocky Linux.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span><span class="n">sqlite3</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">ossec</span><span class="o">/</span><span class="n">queue</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="k">global</span><span class="p">.</span><span class="n">db</span> <span class="s2">&#34;SELECT OS_NAME, OS_MAJOR FROM AGENT WHERE ID = 5;&#34;</span>
+<span class="n">Rocky</span> <span class="n">Linux</span><span class="o">|</span><span class="mi">8</span>
+</code></pre></div><p>Ya con los datos anteriores editamos el fichero ossec.conf y buscamos la seccion donde se configura el modulo de detección de vulnerabilidades, mas concretamente la sección de RedHat y lo configuramos de la siguiente manera:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;!-- RedHat OS vulnerabilities --&gt;
+    &lt;provider name=&#34;redhat&#34;&gt;
+      &lt;enabled&gt;yes&lt;/enabled&gt;
+      &lt;os&gt;5&lt;/os&gt;
+      &lt;os&gt;6&lt;/os&gt;
+      &lt;os&gt;7&lt;/os&gt;
+      &lt;os&gt;8&lt;/os&gt;
+      &lt;os allow=&#34;Rocky Linux-8&#34;&gt;8&lt;/os&gt;
+      &lt;update_interval&gt;1h&lt;/update_interval&gt;
+    &lt;/provider&gt;
+</code></pre></div><p>Reiniciamos el servicio del manager:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">systemctl restart wazuh-manager
+</code></pre></div><p>Ya lo tenemos listo y funcionado, primer escaneo realizado. Ahora a trabajar.
+<figure>
+    <img src="rk8600-01sov.png"/> 
+</figure>
+</p>
+<p>Otro laboratorio mas. Continuara.</p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
