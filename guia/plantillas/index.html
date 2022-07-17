@@ -103,6 +103,10 @@
     </li>
     
     <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/wireguard/">WireGuard Notas</a>
+    </li>
+    
+    <li class="">
       <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
     </li>
     
@@ -382,7 +386,10 @@ reboot
 <ul>
 <li><input checked="" disabled="" type="checkbox"> Copiar llave ssh acceso remoto.</li>
 <li><input checked="" disabled="" type="checkbox"> Software necesario.
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dnf install dkms kernel-devel gcc bzip2 make curl
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dnf update
+dnf upgrade
+dnf install epel-release
+dnf install dkms kernel-devel gcc bzip2 make curl
 rpm -qa kernel-devel
 dnf update kernel-*
 </code></pre></div></li>

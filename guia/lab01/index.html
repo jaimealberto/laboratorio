@@ -103,6 +103,10 @@
     </li>
     
     <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/wireguard/">WireGuard Notas</a>
+    </li>
+    
+    <li class="">
       <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
     </li>
     
@@ -191,7 +195,32 @@ sudo service wazuh-agent start
 </figure>
 </p>
 <p>Nuestro laboratorio ya parece que va arrancando poco a poco, se pueden ver ya varios agentes instalados.</p>
-<h2 id="problemas-comunes">Problemas comunes</h2>
+<h2 id="bsd-diferente">BSD, diferente.</h2>
+<p>De manera nativa no tenemos agente para BSD pero si existe uno en los repositorios con lo cual vamos a realizar la instalación y configuración basica para que únicamente conecte. Esto nos puede ser útil en futuras implementaciones como por ejemplo con <a href="https://opnsense.org/">OPNsense</a>.</p>
+<p>Desde nuestro terminal como root:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">pkg update
+pkg search wazuh-agent
+pkg install wazuh-agent-x.xx.x
+</code></pre></div><p>Lo configuramos:</p>
+<ul>
+<li>Habilitamos el servicio editando el fichero /usr/local/etc/rc.d/wazuh-agent</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">: ${wazuh_agent_enable:=&#34;YES&#34;}
+</code></pre></div><ul>
+<li>Indicamos el servidor al cliente editando /var/ossec/etc/ossec.conf:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;server&gt;
+	&lt;address&gt;WAZUH-MANAGER-IP-ADDRESS&lt;/address&gt;
+&lt;/server&gt;
+</code></pre></div><ul>
+<li>Habilitamos el arranque con el sistema</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">service wazuh-agent enabled
+</code></pre></div><ul>
+<li>Arrancamos el clientes</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">service wazuh-agent start
+</code></pre></div><h2 id="problemas-comunes">Problemas comunes</h2>
 <ul>
 <li>
 <p>No tenemos conexión a Internet. Podemos descargar el agente desde otro hosts y pasarlo a este para su ejecución desde <a href="https://documentation.wazuh.com/current/installation-guide/packages-list.html">aquí</a>. Es importante a parte de seleccionar el paquete de instalación correcto verificar la ves ion como se puede observar en la siguiente imagen.

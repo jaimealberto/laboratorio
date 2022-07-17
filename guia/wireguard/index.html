@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>WireGuard Notas - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/wireguard/">WireGuard Notas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab02/">Lab02 Wazuh controlando agentes</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab03/">Lab03 Wazuh Vulnerability Detector</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab04/">Lab04 Wazuh Vulnerability Detector II</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">WireGuard Notas</h1>
+<div class="content ">
+  <h2 id="objetivo">Objetivo</h2>
+<p>Pese a que ya sabemos que WireGuard es una VPN entre iguales, están son las notas respecto a los ficheros de configuración. Independiente de que cada sistema tiene su particularidades de configuración de rutas, fierwalls etc todos los sistemas llevan un fichero de configuración que podemos distribuir o generar un código QR para leerla.</p>
+<h2 id="esquema-de-red">Esquema de red</h2>
+<p>El mapa para la configuración:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">+----------+      +-----------+
+|          |      |           |
+|          |      | Serviror  |
+| Internet |&lt;---&gt; | WireGuard |&lt;--&gt; Lan 10.0.69.1/28
+|          |      |           |
+|          |      |           | WireGuard network 10.0.34.0/28
++----------+      +-----------+
+</code></pre></div><h2 id="servidor">Servidor</h2>
+<p>Llamaremos servidor al que concentre todas las conexiones pese a ser conexiones peer to peer.</p>
+<p>Parámetros:</p>
+<ul>
+<li>IP Address	10.0.34.1/28</li>
+<li>Listen Port	51820</li>
+<li>Private Key	GPQ8rQeZwSmjcycXNQ0SINYLZgQSOF+YEJdETmgFe2E=</li>
+<li>Public Key	6rBS/OnPz48MAw7RaZiXz/2bUCStbEYDKadNQhVYOno=</li>
+</ul>
+<p>Fichero de configuración:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">[Interface]
+Address = 10.0.34.1/28
+ListenPort = 51820
+PrivateKey = GPQ8rQeZwSmjcycXNQ0SINYLZgQSOF+YEJdETmgFe2E=
+
+[Peer]
+PublicKey = 5vVv4AAMuyJNqBJuVsMw7ExS0yoOGSmn7eAt/xgV1n8=
+AllowedIPs = 10.0.34.2/32
+
+[Peer]
+PublicKey = +vCFoNRHssdxgkome9Yzhp95jBwslu0PlPk/mGmX2gw=
+AllowedIPs = 10.0.34.3/32
+</code></pre></div><h2 id="cliente-i">Cliente I</h2>
+<p>Parámetros:</p>
+<ul>
+<li>IP Address	10.0.34.3/28</li>
+<li>Listen Port	51820</li>
+<li>Private Key	APv99RfIfsS5H8iYQvufMSjRztDY0vwiiP/lEx1Uc1A=</li>
+<li>Public Key	+vCFoNRHssdxgkome9Yzhp95jBwslu0PlPk/mGmX2gw=</li>
+</ul>
+<p>Fichero de configuración:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">[Interface]
+Address = 10.0.34.3/28
+ListenPort = 51820
+PrivateKey = APv99RfIfsS5H8iYQvufMSjRztDY0vwiiP/lEx1Uc1A=
+
+[Peer]
+PublicKey = 6rBS/OnPz48MAw7RaZiXz/2bUCStbEYDKadNQhVYOno=
+AllowedIPs = 10.0.69.0/28
+Endpoint = myserver.dyndns.org:51820
+</code></pre></div><p>Indicando la red Lan (10.0.69.0/28) en “AllowedIPs” estamos especificando que esa es la red accesible por WireGuard, que el resto de trafico va por la ruta por defecto.</p>
+<h2 id="cliente-ii">Cliente II</h2>
+<p>Parámetros:</p>
+<ul>
+<li>IP Address	10.0.34.3/28</li>
+<li>Listen Port	51820</li>
+<li>Private Key	APv99RfIfsS5H8iYQvufMSjRztDY0vwiiP/lEx1Uc1A=</li>
+<li>Public Key	+vCFoNRHssdxgkome9Yzhp95jBwslu0PlPk/mGmX2gw=</li>
+</ul>
+<p>Fichero de configuración:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">[Interface]
+Address = 10.0.34.3/28
+ListenPort = 51820
+PrivateKey = APv99RfIfsS5H8iYQvufMSjRztDY0vwiiP/lEx1Uc1A=
+
+[Peer]
+PublicKey = 6rBS/OnPz48MAw7RaZiXz/2bUCStbEYDKadNQhVYOno=
+AllowedIPs = 0.0.0.0/0, ::/0
+Endpoint = myserver.dyndns.org:51820
+</code></pre></div><p>Indicando todo (0.0.0.0/0, ::/0) en “AllowedIPs” estamos especificando todo el trafico es accesible por WireGuard.</p>
+<h2 id="generar-qr-para-clientes-moviles">Generar QR para clientes moviles</h2>
+<p>Mediante el paqute qrenconde podemos generar códigos  QR para configurar nuestros móviles mas fácilmente de la siguiente manera:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">qrencode -t png -o qrconigmovil1.png -r movil1.conf
+</code></pre></div><h2 id="notas-adicionales">Notas adicionales</h2>
+<ul>
+<li>DNS</li>
+<li>PostUp</li>
+<li>PostDown</li>
+<li>PersistentKeepAlive</li>
+<li>MTU</li>
+</ul>
+<p><a href="https://www.adamintech.com/additional-configuration-options-for-wireguard/">Interace</a></p>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="https://wiki.archlinux.org/title/WireGuard/">Archwiki WireGuard</a>.</li>
+<li><a href="https://www.wireguard.com/">WireGuard</a>.</li>
+<li><a href="https://www.wireguardconfig.com/">WireGuard Config Generator</a>.</li>
+</ul>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
