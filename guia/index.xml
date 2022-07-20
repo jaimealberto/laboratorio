@@ -87,5 +87,14 @@
       <description>Añadiendo funcionalidad al modulo de Vulnerability Detector.</description>
     </item>
     
+    <item>
+      <title>Lab05 Ansible I</title>
+      <link>https://laboratorio.jaimealberto.io/guia/lab05/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://laboratorio.jaimealberto.io/guia/lab05/</guid>
+      <description>Lab05 Ansible I.</description>
+    </item>
+    
   </channel>
 </rss>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Lab05 Ansible I - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/wireguard/">WireGuard Notas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab02/">Lab02 Wazuh controlando agentes</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab03/">Lab03 Wazuh Vulnerability Detector</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab04/">Lab04 Wazuh Vulnerability Detector II</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab05/">Lab05 Ansible I</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Lab05 Ansible I</h1>
+<div class="content ">
+  <h2 id="objetivo">Objetivo</h2>
+<p>Dado el crecimiento del numero de hosts de nuestro laboratorio las labores de actualización, instalación, etc ya comienzan a ser un poco tediosas. Con el objetivo de optimizar todo esto e implantar una nueva herramienta. Ansible nos ayudara en todo esto.</p>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>Ansible instalado en el host de control.</li>
+<li>Conexión mediante lleves ssh con los hosts del laboratorio con el usuario que ejecutara Ansible.</li>
+<li>Configuración correcta para escalar privilegios utilizando sudo del usuario que ejecute Ansible.</li>
+</ul>
+<h2 id="mapa-de-red">Mapa de red</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">+----------+      +--------+           +----------+
+|          |      |        |           |          |&lt;--&gt; Lan 10.0.0.1/28
+|          |      |        |           | Firewall |
+| Internet |&lt;---&gt; | Router |&lt;---Wan---&gt;| OPNsense |&lt;--&gt; DMZINT 10.0.0.17/28
+|          |      |        |           |          |
+|          |      |        |           |          |&lt;--&gt; DMZEXT 10.0.0.33/28
++----------+      +--------+           +----------+
+</code></pre></div><h2 id="instalacion-ansible">Instalacion Ansible</h2>
+<p>La instalación se realizaremos desde el terminal.</p>
+<h3 id="fedora">Fedora:</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$sudo</span> dnf install ansible
+</code></pre></div><h3 id="centos">CentOS:</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$sudo</span> yum install epel-release
+<span class="nv">$sudo</span> yum install ansible
+</code></pre></div><h3 id="ubuntu">Ubuntu:</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$sudo</span> apt update
+<span class="nv">$sudo</span> apt install software-properties-common
+<span class="nv">$sudo</span> add-apt-repository --yes --update ppa:ansible/ansible
+<span class="nv">$sudo</span> apt install ansible
+</code></pre></div><h3 id="debian-10">Debian 10</h3>
+<p>Añadimos el repositorio en /etc/apt/sources.list o /etc/apt/sources.list.d/ansible.list.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">deb http://ppa.launchpad.net/ansible/ansible/ubuntu bionic main
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$sudo</span> apt-get install gnupg2 curl wget -y
+<span class="nv">$sudo</span> apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+<span class="nv">$sudo</span> apt update
+<span class="nv">$sudo</span> apt install ansible
+</code></pre></div><h3 id="debian-11">Debian 11</h3>
+<p>Añadimos el repositorio en /etc/apt/sources.list o /etc/apt/sources.list.d/ansible.list.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">deb http://ppa.launchpad.net/ansible/ansible/ubuntu focal main
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$sudo</span> apt-get install gnupg2 curl wget -y
+<span class="nv">$sudo</span> apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+<span class="nv">$sudo</span> apt update
+<span class="nv">$sudo</span> apt install ansible
+</code></pre></div><p>Comprobamos que todo esta ok</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$ansible</span> --version
+</code></pre></div><h2 id="conexión-ssh">Conexión ssh</h2>
+<p>Podéis seguir mi guía <a href="https://www.jaimealberto.io/post/07_universosshi/#llaves">aquí</a></p>
+<h2 id="escalado-de-privilegios">Escalado de privilegios</h2>
+<p>Para que el usuario que ejecute Ansible pueda escalar privilegios correctamente tenemos que configurar sudo. Añadiremos las siguiente lineas con ejecutando visudo como root. Quedaría algo así :</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/////
+%sudo   ALL=(ALL:ALL) ALL
+sistemas    ALL=NOPASSWD: ALL
+</code></pre></div><h2 id="configuracion">Configuracion</h2>
+<p>Tanto el fichero de configuración de Ansible (ansible.cfg) como el de inventario (inventario)los tengo en un directorio dedicado únicamente a la gestión del laboratorio. Tienen el siguiente contenido.</p>
+<h3 id="fichero-de-inventario-inventario">Fichero de inventario (inventario)</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">[all]
+10.0.0.2 
+10.0.0.4 
+10.0.0.5
+10.0.0.6
+10.0.0.18
+10.0.0.19
+10.0.0.20
+10.0.0.21
+10.0.0.23
+10.0.0.35
+10.0.0.34
+10.0.0.38
+[debian]
+10.0.0.2
+10.0.0.35
+[fedora]
+10.0.0.4
+[ubuntu]
+10.0.0.6
+10.0.0.18
+10.0.0.19
+10.0.0.20
+10.0.0.21
+10.0.0.23
+10.0.0.34
+[rocky]
+10.0.0.38
+[manjaro]
+10.0.0.5
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+</code></pre></div><h3 id="fichero-de-configuracion-ansiblecfg">Fichero de configuracion (ansible.cfg)</h3>
+<p>Fichero copiado del de defecto de la instalación y modificado lo siguiente:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">/////////////////////////////
+[defaults]
+
+# some basic default values...
+
+inventory      = ./inventario
+/////////////////////////////
+remote_user = sistemas
+/////////////////////////////
+[privilege_escalation]
+become=True
+become_method=sudo
+become_user=root
+become_ask_pass=False
+/////////////////////////////
+</code></pre></div><h3 id="comprobación">Comprobación</h3>
+<p>Para verificar que Ansible esta configurado correctamente ejecutaremos el modulo ping.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$ansible</span> all -m ping
+</code></pre></div><p><figure>
+    <img src="ansible.gif"/> 
+</figure>
+
+Como se puede observar se ejecuta correctamente. Sin esta comprobación correcta no podemos continuar.</p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
