@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Lab06 Ansible II - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/wireguard/">WireGuard Notas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab02/">Lab02 Wazuh controlando agentes</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab03/">Lab03 Wazuh Vulnerability Detector</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab04/">Lab04 Wazuh Vulnerability Detector II</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab05/">Lab05 Ansible I</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab06/">Lab06 Ansible II</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Lab06 Ansible II</h1>
+<div class="content ">
+  <h2 id="objetivo">Objetivo</h2>
+<p>Ahora nos tocan los hosts Windows, poco pero alguno tenemos en el laboratorio.</p>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>Añadir a nuestro Ansible la capacidad de control para sistemas Windows.</li>
+<li></li>
+<li>Configuración correcta para escalar privilegios utilizando sudo del usuario que ejecute Ansible.</li>
+</ul>
+<h2 id="mapa-de-red">Mapa de red</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">+----------+      +--------+           +----------+
+|          |      |        |           |          |&lt;--&gt; Lan 10.0.0.1/28
+|          |      |        |           | Firewall |
+| Internet |&lt;---&gt; | Router |&lt;---Wan---&gt;| OPNsense |&lt;--&gt; DMZINT 10.0.0.17/28
+|          |      |        |           |          |
+|          |      |        |           |          |&lt;--&gt; DMZEXT 10.0.0.33/28
++----------+      +--------+           +----------+
+</code></pre></div><h2 id="configuración-ansible">Configuración Ansible</h2>
+<p>Desde el terminal.</p>
+<h3 id="fedora">Fedora:</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$sudo</span> pip install https://github.com/diyan/pywinrm/archive/master.zip#egg<span class="o">=</span>pywinrm
+<span class="nv">$sudo</span> pip install kerberos
+<span class="nv">$sudo</span> yum -y install gcc python-devel krb5-devel krb5-workstation
+</code></pre></div><h3 id="debian">Debian:</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$sudo</span> pip install https://github.com/diyan/pywinrm/archive/master.zip#egg<span class="o">=</span>pywinrm
+<span class="nv">$sudo</span> pip install kerberos
+</code></pre></div><h2 id="configuracion">Configuracion</h2>
+<p>Tanto el fichero de configuración de Ansible (ansible.cfg) como el de inventario (inventario)los tengo en un directorio dedicado únicamente a la gestión del laboratorio. Tienen el siguiente contenido.</p>
+<h3 id="fichero-de-inventario-inventario">Fichero de inventario (inventario)</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">[windows]
+w1000-01 ansible_host=10.0.0.3
+
+[windows:vars]
+ansible_ssh_user=Administrador
+ansible_ssh_pass=SuperPassword123!
+ansible_ssh_port=5986
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+</code></pre></div><h3 id="fichero-de-configuracion-ansiblecfg">Fichero de configuracion (ansible.cfg)</h3>
+<p>Fichero copiado del de defecto de la instalación y modificado lo siguiente:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">///////////
+[defaults]
+
+# some basic default values...
+
+inventory      = ./inventario
+</code></pre></div><h2 id="host-windows">Host Windows</h2>
+<p>Utilizaremos WinRM.</p>
+<p>Abiremos la consola de PowerShell con privilegios de administrador y seguimos los siguientes pasos:</p>
+<ul>
+<li>Levantar servicio.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-PowerShell" data-lang="PowerShell"><span class="nb">PS </span><span class="n">C:</span><span class="p">/&gt;</span> <span class="nb">Enable-PSRemoting</span> <span class="n">-force</span>
+<span class="n">WinRM</span> <span class="n">se</span> <span class="n">ha</span> <span class="n">actualizado</span> <span class="n">para</span> <span class="n">recibir</span> <span class="n">solicitudes</span><span class="p">.</span>
+<span class="n">Se</span> <span class="n">cambió</span> <span class="n">el</span> <span class="n">tipo</span> <span class="n">de</span> <span class="n">servicio</span> <span class="n">WinRM</span> <span class="n">correctamente</span><span class="p">.</span>
+<span class="n">Servicio</span> <span class="n">WinRM</span> <span class="n">iniciado</span><span class="p">.</span>
+
+<span class="n">WinRM</span> <span class="n">se</span> <span class="n">actualizó</span> <span class="n">para</span> <span class="n">administración</span> <span class="n">remota</span><span class="p">.</span>
+<span class="n">Excepción</span> <span class="n">de</span> <span class="n">firewall</span> <span class="n">WinRM</span> <span class="n">habilitada</span><span class="p">.</span>
+<span class="n">LocalAccountTokenFilterPolicy</span> <span class="n">configurado</span> <span class="n">para</span> <span class="n">conceder</span> <span class="n">derechos</span> <span class="n">administrativos</span> <span class="n">en</span> <span class="n">modo</span> <span class="n">remoto</span> <span class="n">a</span> <span class="n">usuarios</span> <span class="n">locales</span><span class="p">.</span>
+</code></pre></div><ul>
+<li>Inicio automatico.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-PowerShell" data-lang="PowerShell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Set-Service</span> <span class="n">WinRM</span> <span class="n">-StartMode</span> <span class="n">Automatic</span>
+</code></pre></div><ul>
+<li>Comprobar inicio autommatico.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-PowerShell" data-lang="PowerShell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Get-WmiObject</span> <span class="n">-Class</span> <span class="n">win32_service</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">name</span> <span class="o">-like</span> <span class="s2">&#34;WinRM&#34;</span><span class="p">}</span>
+<span class="n">ExitCode</span>  <span class="err">:</span> <span class="n">0</span>
+<span class="n">Name</span>      <span class="err">:</span> <span class="n">WinRM</span>
+<span class="n">ProcessId</span> <span class="err">:</span> <span class="n">6328</span>
+<span class="n">StartMode</span> <span class="err">:</span> <span class="n">Auto</span>
+<span class="n">State</span>     <span class="err">:</span> <span class="n">Running</span>
+<span class="n">Status</span>    <span class="err">:</span> <span class="n">OK</span>
+</code></pre></div><ul>
+<li>Habilitar ejecucion de scripts.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Powershell" data-lang="Powershell"><span class="nb">PS </span><span class="n">C:</span><span class="p">\&gt;</span> <span class="nb">Set-ExecutionPolicy</span> <span class="n">Unrestricted</span>
+
+<span class="n">Cambio</span> <span class="n">de</span> <span class="n">directiva</span> <span class="n">de</span> <span class="n">ejecución</span>
+<span class="n">La</span> <span class="n">directiva</span> <span class="n">de</span> <span class="n">ejecución</span> <span class="n">te</span> <span class="n">ayuda</span> <span class="n">a</span> <span class="n">protegerte</span> <span class="n">de</span> <span class="n">scripts</span> <span class="n">en</span> <span class="n">los</span> <span class="n">que</span> <span class="n">no</span> <span class="n">confías</span><span class="p">.</span> <span class="nb">Si </span><span class="n">cambias</span> <span class="n">dicha</span> <span class="n">directiva</span><span class="p">,</span> <span class="n">podrías</span>
+<span class="n">exponerte</span> <span class="n">a</span> <span class="n">los</span> <span class="n">riesgos</span> <span class="n">de</span> <span class="n">seguridad</span> <span class="n">descritos</span> <span class="n">en</span> <span class="n">el</span> <span class="n">tema</span> <span class="n">de</span> <span class="n">la</span> <span class="n">Ayuda</span> <span class="n">about_Execution_Policies</span> <span class="n">en</span>
+<span class="n">https</span><span class="err">:</span><span class="p">/</span><span class="n">go</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">fwlink</span><span class="p">/</span><span class="k">?</span><span class="n">LinkID</span><span class="p">=</span><span class="n">135170</span><span class="p">.</span> <span class="err">¿</span><span class="n">Quieres</span> <span class="n">cambiar</span> <span class="n">la</span> <span class="n">directiva</span> <span class="n">de</span> <span class="n">ejecución</span><span class="p">?</span>
+<span class="no">[S] Sí  [O] Sí a todo  [N] No  [T] No a todo  [U]</span> <span class="n">Suspender</span>  <span class="p">[?]</span> <span class="n">Ayuda</span> <span class="p">(</span><span class="n">el</span> <span class="n">valor</span> <span class="n">predeterminado</span> <span class="n">es</span> <span class="s2">&#34;N&#34;</span><span class="p">)</span><span class="err">:</span> <span class="n">s</span>
+</code></pre></div><ul>
+<li>Definimos entorno con ejecutnado un ps1 con el siguieten contenido:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Powershell" data-lang="Powershell"><span class="nv">$url</span> <span class="p">=</span> <span class="s2">&#34;https://raw.githubusercontent.com/jborean93/ansible-windows/master/scripts/Upgrade-PowerShell.ps1&#34;</span>
+<span class="nv">$file</span> <span class="p">=</span> <span class="s2">&#34;$env:temp\Upgrade-PowerShell.ps1&#34;</span>
+<span class="nv">$username</span> <span class="p">=</span> <span class="s2">&#34;Administrador&#34;</span>
+<span class="nv">$password</span> <span class="p">=</span> <span class="s2">&#34;SuperPassword123!&#34;</span>
+
+<span class="p">(</span><span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadFile</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nv">$file</span><span class="p">)</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">Unrestricted</span> <span class="n">-Force</span>
+
+<span class="c"># Version can be 3.0, 4.0 or 5.1</span>
+<span class="p">&amp;</span><span class="nv">$file</span> <span class="n">-Version</span> <span class="n">5</span><span class="p">.</span><span class="n">1</span> <span class="n">-Username</span> <span class="nv">$username</span> <span class="n">-Password</span> <span class="nv">$password</span> <span class="n">-Verbose</span>
+</code></pre></div><ul>
+<li>Creamos el siguiente ps1 para modificar el sistema y lo ejecutamos:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Powershell" data-lang="Powershell"><span class="nv">$url</span> <span class="p">=</span> <span class="s2">&#34;https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1&#34;</span>
+<span class="nv">$file</span> <span class="p">=</span> <span class="s2">&#34;$env:temp\ConfigureRemotingForAnsible.ps1&#34;</span>
+ 
+<span class="p">(</span><span class="nb">New-Object</span> <span class="n">-TypeName</span> <span class="n">System</span><span class="p">.</span><span class="n">Net</span><span class="p">.</span><span class="n">WebClient</span><span class="p">).</span><span class="n">DownloadFile</span><span class="p">(</span><span class="nv">$url</span><span class="p">,</span> <span class="nv">$file</span><span class="p">)</span>
+ 
+<span class="n">powershell</span><span class="p">.</span><span class="n">exe</span> <span class="n">-ExecutionPolicy</span> <span class="n">ByPass</span> <span class="o">-File</span> <span class="nv">$file</span>
+</code></pre></div><ul>
+<li>Creamos otro ps1 y lo ejecutamos para modifcar la plitica de ejecución y eleminamos wl WinLogon por seguridad:</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-Powershell" data-lang="Powershell"><span class="c"># This isn&#39;t needed but is a good security practice to complete</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">Restricted</span> <span class="n">-Force</span>
+
+<span class="nv">$reg_winlogon_path</span> <span class="p">=</span> <span class="s2">&#34;HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon&#34;</span>
+<span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$reg_winlogon_path</span> <span class="n">-Name</span> <span class="n">AutoAdminLogon</span> <span class="n">-Value</span> <span class="n">0</span>
+<span class="nb">Remove-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$reg_winlogon_path</span> <span class="n">-Name</span> <span class="n">DefaultUserName</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+<span class="nb">Remove-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$reg_winlogon_path</span> <span class="n">-Name</span> <span class="n">DefaultPassword</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</code></pre></div><h2 id="comprobación">Comprobación</h2>
+<p>Para verificar que Ansible esta configurado correctamente ejecutaremos el modulo ping.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$ansible</span> windows -m win_ping
+</code></pre></div><p><figure>
+    <img src="ansiblew.gif"/> 
+</figure>
+
+Como se puede observar se ejecuta correctamente. Sin esta comprobación correcta no podemos continuar.</p>
+<p><a href="https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html">Documentación oficial</a></p>
+
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
