@@ -259,7 +259,7 @@ inventory      = ./inventario
 <span class="nb">Remove-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$reg_winlogon_path</span> <span class="n">-Name</span> <span class="n">DefaultUserName</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
 <span class="nb">Remove-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$reg_winlogon_path</span> <span class="n">-Name</span> <span class="n">DefaultPassword</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
 </code></pre></div><h2 id="comprobación">Comprobación</h2>
-<p>Para verificar que Ansible esta configurado correctamente ejecutaremos el modulo ping.</p>
+<p>Para verificar que Ansible esta configurado correctamente ejecutaremos el modulo win_ping.</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">$ansible</span> windows -m win_ping
 </code></pre></div><p><figure>
     <img src="ansiblew.gif"/> 
