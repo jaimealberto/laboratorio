@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>OvA - Laboratorio</title>
+  <title>Lab06 Centreon instalando - Laboratorio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
@@ -98,7 +98,7 @@
       <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
     </li>
     
-    <li class="active ">
+    <li class="">
       <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
     </li>
     
@@ -134,7 +134,7 @@
       <a href="https://laboratorio.jaimealberto.io/guia/lab06/">Lab06 Ansible II</a>
     </li>
     
-    <li class="">
+    <li class="active ">
       <a href="https://laboratorio.jaimealberto.io/guia/lab07/">Lab06 Centreon instalando</a>
     </li>
     
@@ -145,29 +145,42 @@
         </div>
         <div class="col-12 col-md-9">
           
-<h1 class="title">OvA</h1>
+<h1 class="title">Lab06 Centreon instalando</h1>
 <div class="content ">
-  <!-- raw HTML omitted -->
+  <h2 id="objetivo">Objetivo</h2>
+<p>Realizar la instalación de un servidor de monitorización basado en Centreon versión 22.04 para controlar todos los hosts de nuestro laboratorio y saber en que estado estan.</p>
+<h2 id="requisitos">Requisitos</h2>
 <ul>
-<li><a href="#id1">Ubuntu Server</a></li>
-</ul>
-<hr>
-<p>Muchas soluciones de software nos proveen ovas para poder realizar pruebas. La mayoría por no decir todas en idioma y teclado no es en Español, la zona horaria no es la nuestra, etc. La mayoría basadas en Ubuntu Server, según aparezcan mas actualizare esta documentación. Están son mis notas para poder cambiar todo esto:</p>
-<!-- raw HTML omitted -->
-<h3 id="ubuntu-server">Ubuntu Server</h3>
+<li>Software sistema operativo soportado. En este caso elegiremos Alma Linux en su versión 8.</li>
+<li>Hardware:
 <ul>
-<li>Zona horaria</li>
+<li>1 CPU</li>
+<li>4 GB RAM</li>
+<li>60 GB HD</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">timedatectl set-timezone Europe/Madrid <span class="o">&amp;&amp;</span> timedatectl
-</code></pre></div><ul>
-<li>Idioma</li>
+</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dpkg-reconfigure locales
-</code></pre></div><ul>
-<li>Mapa de teclado</li>
+<h2 id="instalar-y-configurar-el-back-end-de-centreon">Instalar y configurar el back-end de Centreon</h2>
+<p>Como vamos a instalar todos sus componentes en un solo host abrimos un terminal como root y ejecutamos:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh"><span class="c1">#curl -L -s https://raw.githubusercontent.com/centreon/centreon/master/unattended.sh | sh </span>
+</code></pre></div><p>El script realizará entonces las siguientes tareas:</p>
+<ul>
+<li>Habilitar SELinux (modo permisivo).</li>
+<li>Instalar el repositorio Centreon.</li>
+<li>Instalar Centreon.</li>
+<li>Definir la zona horaria de PHP.</li>
+<li>Añadir reglas de firewall (sólo si el firewalld está activado).</li>
+<li>Activar procesos.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">dpkg-reconfigure keyboard-configuration
-</code></pre></div><p><a href="#id0">Top</a></p>
+<p>Como se puede observar tarda unos minutos, esto depende de las características de hardware de host.</p>
+<figure>
+    <img src="centreon.gif"/> 
+</figure>
+
+<p>Al finalizar nos indica la contraseña de root de MariaDB, que la guarda en un fichero situado en etc/centreon/generated.tobesecured. Es aconsejable guardar las credenciales a buen recaudo y borrar el fichero.</p>
+<p>Ahora nos conectamos vía web con un navegador para continuar con la instalación mediante su asistente.</p>
+<p>Una vez terminaod ya esta todo listo para comenzar a monitorizar nuestro laboratorio.</p>
+<p>Opcionalmente podemos conseguir una licencia gratuita que nos permitirá monitorizar 100 hosts sin coste y poder acceder a una serie de características extras. IT-100</p>
 
 </div>
 </div>
