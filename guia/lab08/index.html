@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Lab08 Ansible III - Laboratorio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="icon" href="https://laboratorio.jaimealberto.io/favicon.png">
+
+  
+  
+  <link rel="stylesheet" href="/css/style.min.aad43d4ecb69a264f2539b89d7f779d5f3cdff22e7585fe5fc3c77272f1c2696.css">
+  
+
+  
+
+</head>
+
+<body class='page page-default-single'>
+  <div id="main-menu-mobile" class="main-menu-mobile">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+  <div class="wrapper">
+    <div class='header'>
+  <div class="container">
+    <div class="logo">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo.svg" /></a>
+    </div>
+    <div class="logo-mobile">
+      <a href="https://laboratorio.jaimealberto.io"><img alt="Logo" src="/images/logo-mobile.svg" /></a>
+    </div>
+    <div id="main-menu" class="main-menu">
+  <ul>
+    
+    
+    <li class="menu-item-inicio">
+      <a href="/">
+        <span>Inicio</span>
+      </a>
+    </li>
+    
+    <li class="menu-item-guia">
+      <a href="/guia/">
+        <span>Guia</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+    <button id="toggle-main-menu-mobile" class="hamburger hamburger--slider" type="button">
+  <span class="hamburger-box">
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+  </div>
+</div>
+
+
+    
+    
+    
+    
+    
+    
+
+    
+    <div class="container pt-2 pt-md-6 pb-3 pb-md-6">
+      <div class="row">
+        <div class="col-12 col-md-3 mb-3">
+          <div class="sidebar">
+            
+<div class="docs-menu">
+  <h4>Guia</h4>
+  <ul>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/herramientas/">Herramientas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/plantillas/">Plantillas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/ova/">OvA</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/wireguard/">WireGuard Notas</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab00/">Lab00 Wazuh All in One</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab01/">Lab01 Wazuh desplegando agentes modo manual</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab02/">Lab02 Wazuh controlando agentes</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab03/">Lab03 Wazuh Vulnerability Detector</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab04/">Lab04 Wazuh Vulnerability Detector II</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab05/">Lab05 Ansible I</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab06/">Lab06 Ansible II</a>
+    </li>
+    
+    <li class="">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab07/">Lab07 Centreon instalando</a>
+    </li>
+    
+    <li class="active ">
+      <a href="https://laboratorio.jaimealberto.io/guia/lab08/">Lab08 Ansible III</a>
+    </li>
+    
+  </ul>
+</div>
+
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          
+<h1 class="title">Lab08 Ansible III</h1>
+<div class="content ">
+  <h2 id="objetivo">Objetivo</h2>
+<p>Actualizar todos los host Linux o los que queramos utilizando un playbook con Ansible.</p>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>Tener instalado y configurado correctamente Ansible.</li>
+<li>Poder ejecutar Ansible contra los hosts Linux del laboratorio.</li>
+</ul>
+<h2 id="conceptos">Conceptos</h2>
+<ul>
+<li>Playbook o libro de jugadas: Un playbook es un archivo YAML (.yml o .yaml) que tiene un conjunto de tareas (tasks) que se ejecutan en los hosts indicados del archivo de inventario. Las tareas llaman a los módulos que se ejecutan en el orden en el que se escriben.</li>
+<li>Módulo, task pluggins o library plugglins: librería de acciones disponibles en el software, que pueden ser usadas desde una línea de comandos o playbook. El usuario tiene la posibilidad de recurrir a un solo módulo por tarea o varios módulos diferentes en un playbook.</li>
+</ul>
+<h2 id="playbook-actualización-de-paqutes-deb">Playbook actualización de paqutes deb</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">---</span><span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">debian,ubuntu</span><span class="w"> </span><span class="c"># hosts o grupos del inventario donde se aplica el playbook</span><span class="w">
+</span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Actualizando cache y paquetes</span><span class="w"> </span><span class="c"># Nombre de la tarea</span><span class="w">
+</span><span class="w">      </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">updatesys</span><span class="w">
+</span><span class="w">      </span><span class="nt">apt</span><span class="p">:</span><span class="w"> 
+</span><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w"> </span><span class="c"># Nombre del paquete, en este caso todos</span><span class="w">
+</span><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w"> </span><span class="c"># Versión del paquete, la ultima</span><span class="w">
+</span><span class="w">        </span><span class="nt">update_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w"> </span><span class="c"># Actualizar la cache</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Borrarando paquetes que ya no son necesarios</span><span class="w"> </span><span class="c"># Nombre de la tarea</span><span class="w">
+</span><span class="w">      </span><span class="nt">apt</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">autoclean</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Borrarando dependencias que ya no son necesarias</span><span class="w"> </span><span class="c"># Nombre de la tarea</span><span class="w">
+</span><span class="w">      </span><span class="nt">apt</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">autoremove</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w"></span><span class="nn">...</span><span class="w">                            
+</span></code></pre></div><h2 id="playbook-actualización-de-paqutes-rpm">Playbook actualización de paqutes rpm</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">---</span><span class="w">
+</span><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">fedora,rocky,alma</span><span class="w"> </span><span class="c"># hosts o grupos del inventario donde se aplica el playbook</span><span class="w">
+</span><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Actualizando cache y paquetes</span><span class="w"> </span><span class="c"># Nombre de la tarea</span><span class="w">
+</span><span class="w">      </span><span class="nt">register</span><span class="p">:</span><span class="w"> </span><span class="l">updatesys</span><span class="w">
+</span><span class="w">      </span><span class="nt">dnf</span><span class="p">:</span><span class="w"> 
+</span><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w"> </span><span class="c"># Nombre del paquete, en este caso todos</span><span class="w">
+</span><span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w"> </span><span class="c"># Versión del paquete, la ultima</span><span class="w">
+</span><span class="w">        </span><span class="nt">update_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w"> </span><span class="c"># Actualizar la cache</span><span class="w">
+</span><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Borrarando dependencias que ya no son necesarias</span><span class="w"> </span><span class="c"># Nombre de la tarea</span><span class="w">
+</span><span class="w">      </span><span class="nt">dnf</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">autoremove</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span><span class="w"></span><span class="nn">...</span><span class="w">                            
+</span></code></pre></div><h2 id="utilizando-los-playbooks">Utilizando los playbooks.</h2>
+<ul>
+<li>Comprobar la sintaxis</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ansible-playbook NOMBRE_DEL_PLAYBOOK.yml --syntax-check
+</code></pre></div><ul>
+<li>Ejecutar en modo check, no realiza cambios</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ansible-playbook NOMBRE_DEL_PLAYBOOK.yml -C
+</code></pre></div><ul>
+<li>Ejecutar</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">ansible-playbook NOMBRE_DEL_PLAYBOOK.yml
+</code></pre></div>
+</div>
+</div>
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="sub-footer-inner">
+          <ul>
+            <li class="zerostatic"><a href="https://www.zerostatic.io">www.zerostatic.io</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/scripts.min.1237ff71925bb8625c97a9af8db4c54525258bedfd7c47493daaff723bea755e.js"></script>
+  
+
+  
+  
+  
+    
+  
+
+
+</body>
+
+</html>
