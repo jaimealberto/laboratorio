@@ -158,7 +158,15 @@
 <li>Tener instalado y configurado correctamente Ansible.</li>
 <li>Poder ejecutar Ansible contra los hosts Linux del laboratorio.</li>
 </ul>
-<h2 id="conceptos">Conceptos</h2>
+<h2 id="mapa-de-red">Mapa de red</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">+----------+      +--------+           +----------+
+|          |      |        |           |          |&lt;--&gt; Lan 10.0.0.1/28
+|          |      |        |           | Firewall |
+| Internet |&lt;---&gt; | Router |&lt;---Wan---&gt;| OPNsense |&lt;--&gt; DMZINT 10.0.0.17/28
+|          |      |        |           |          |
+|          |      |        |           |          |&lt;--&gt; DMZEXT 10.0.0.33/28
++----------+      +--------+           +----------+
+</code></pre></div><h2 id="conceptos">Conceptos</h2>
 <ul>
 <li>Playbook o libro de jugadas: Un playbook es un archivo YAML (.yml o .yaml) que tiene un conjunto de tareas (tasks) que se ejecutan en los hosts indicados del archivo de inventario. Las tareas llaman a los módulos que se ejecutan en el orden en el que se escriben.</li>
 <li>Módulo, task pluggins o library plugglins: librería de acciones disponibles en el software, que pueden ser usadas desde una línea de comandos o playbook. El usuario tiene la posibilidad de recurrir a un solo módulo por tarea o varios módulos diferentes en un playbook.</li>
