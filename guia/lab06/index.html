@@ -201,7 +201,7 @@ inventory      = ./inventario
 <ul>
 <li>Levantar servicio.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-PowerShell" data-lang="PowerShell"><span class="nb">PS </span><span class="n">C:</span><span class="p">/&gt;</span> <span class="nb">Enable-PSRemoting</span> <span class="n">-force</span>
+<div class="highlight"><pre class="chroma"><code class="language-PowerShell" data-lang="PowerShell"><span class="nb">PS </span><span class="n">C:</span><span class="p">/&gt;</span> <span class="nb">Enable-PSRemoting</span> <span class="n">-force</span> <span class="n">-SkipNetworkProfileCheck</span>
 <span class="n">WinRM</span> <span class="n">se</span> <span class="n">ha</span> <span class="n">actualizado</span> <span class="n">para</span> <span class="n">recibir</span> <span class="n">solicitudes</span><span class="p">.</span>
 <span class="n">Se</span> <span class="n">cambió</span> <span class="n">el</span> <span class="n">tipo</span> <span class="n">de</span> <span class="n">servicio</span> <span class="n">WinRM</span> <span class="n">correctamente</span><span class="p">.</span>
 <span class="n">Servicio</span> <span class="n">WinRM</span> <span class="n">iniciado</span><span class="p">.</span>
@@ -274,6 +274,7 @@ inventory      = ./inventario
 
 Como se puede observar se ejecuta correctamente. Sin esta comprobación correcta no podemos continuar.</p>
 <p><a href="https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html">Documentación oficial</a></p>
+<p><a href="https://github.com/jaimealberto/scripts/tree/main/Windows/Ansible">Mi repo en Github</a></p>
 
 </div>
 </div>

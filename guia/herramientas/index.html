@@ -186,7 +186,13 @@ apt-get install terraform
 </code></pre></div><p><a href="#id0">Top</a></p>
 <!-- raw HTML omitted -->
 <h4 id="ansiblea-nameansiblea">Ansible<!-- raw HTML omitted --><!-- raw HTML omitted --></h4>
-<p>La instalación de Ansible la realizaremos desde los repositorios de nuestra distribución.</p>
+<p>La instalación de Ansible la realizaremos desde los repositorios</p>
+<p>Desde nuestro terminal como root:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt install gnupg2 curl wget -y
+<span class="nb">echo</span> <span class="s2">&#34;deb http://ppa.launchpad.net/ansible/ansible/ubuntu focal main&#34;</span> <span class="p">|</span> tee /etc/apt/sources.list.d/ansible.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+apt update <span class="o">&amp;&amp;</span> apt install ansible -y
+</code></pre></div><p>O bien desde los repositorios de nuestra distribución.</p>
 <p>Desde nuestro terminal como root:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sh" data-lang="sh">apt-get install python3 python3-pip
 pip3 install ansible
